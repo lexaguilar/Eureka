@@ -34,7 +34,7 @@ namespace Eureka.Controllers
 
         public async Task<IActionResult> ListarPerfiles()
         {
-            var result = _context.Areas.Include(a => a.Perfiles).Select(p=>p.Perfiles.Take(100));
+            var result = _context.Areas.Include(a => a.Perfiles).Select(p => p.Perfiles.Take(100));
             return Json(await result.ToListAsync(), config);
         }
 

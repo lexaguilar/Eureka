@@ -8,7 +8,7 @@
     <environment include="Development">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
         <link href="~/lib/eureka/css/bootstrap.min.css" rel="stylesheet">
-        <link href="~/lib/eureka/css/nifty.min.css"  asp-append-version="true" rel="stylesheet">
+        <link href="~/lib/eureka/css/nifty.min.css" asp-append-version="true" rel="stylesheet">
         <link href="~/lib/eureka/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
         <link href="~/lib/eureka/css/demo/nifty-demo.min.css" rel="stylesheet">
         <link href="~/lib/eureka/plugins/ionicons/css/ionicons.css" rel="stylesheet">
@@ -22,8 +22,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" /> -->
     </environment>
-     @if (IsSectionDefined("Styles"))
-            {@RenderSection("Styles", required: false)}
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
 </head>
 <body class="pace-done">
     <div class="pace  pace-inactive">
@@ -32,11 +32,11 @@
         </div>
         <div class="pace-activity"></div>
     </div>
-        <div id="container" class="effect aside-float aside-bright mainnav-lg">        
-    
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+
         <header id="navbar">
             <div id="navbar-container" class="boxed">
-            
+
                 <div class="navbar-header">
                     <a asp-controller="Home" class="navbar-brand">
                         <img src="~/lib/eureka/img/logo.png" alt="Eureka Logo" class="brand-icon">
@@ -45,7 +45,7 @@
                         </div>
                     </a>
                 </div>
-            
+
                 <div class="navbar-content">
                     <ul class="nav navbar-top-links">
 
@@ -54,7 +54,7 @@
                                 <i class="demo-pli-list-view"></i>
                             </a>
                         </li>
-                        
+
                         <li>
                             <div class="custom-search-form">
                                 <label class="btn btn-trans" for="search-input" data-toggle="collapse" data-target="#nav-searchbox">
@@ -66,7 +66,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>                       
+                        </li>
 
                     </ul>
                     <ul class="nav navbar-top-links">
@@ -80,64 +80,61 @@
                                     <div class="col-sm-4 col-md-3">
 
                                         <ul class="list-unstyled">
-                                            <li class="dropdown-header"><i class="demo-pli-file icon-lg icon-fw"></i> Catalogos</li>
-                                            <li><a href="#">Clientes</a></li>
-                                            <li><a href="#">Proveedores</a></li>
-                                            <li><a href="#">Rubros</a></li>
-                                            <li><a href="#">Tipo Ajustes</a></li>
+                                            <li class="dropdown-header"><i class="ti-layout-grid3 icon-lg icon-fw"></i> Inventario</li>
+                                            <li><a asp-controller="familias" asp-action="index"><i class="ti-menu-alt"></i> Familias</a></li>
+                                            <li><a asp-controller="presentaciones" asp-action="index"><i class="ti-light-bulb"></i> Presentación</a></li>
+                                            <li><a asp-controller="ums" asp-action="index"><i class="ti-ruler-alt-2"></i> Unidada de medida</a></li>
                                         </ul>
 
                                     </div>
                                     <div class="col-sm-4 col-md-3">
 
                                         <ul class="list-unstyled">
-                                            <li class="dropdown-header"><i class="demo-pli-mail icon-lg icon-fw"></i> Invetarios</li>                                           
-                                            <li><a href="#">Facturas</a></li>
-                                            <li><a href="#">Compras</a></li>
-                                            <li><a asp-controller="inventarios" asp-action="index">Inventarios</a></li>
+                                            <li class="dropdown-header"><i class="ti-harddrive icon-lg icon-fw"></i> Facturas</li>
+                                            <li><a asp-controller="clientes" asp-action="index"><i class="ti-user"></i> Clientes</a></li>
+                                            <li><a asp-controller="tipoentes" asp-action="index"><i class="ti-pin2"></i> Tipo de clientes</a></li>
+                                            <li><a asp-controller="categorias" asp-action="index"><i class="ti-info-alt"></i> Categoria de clientes</a></li>
+                                            <li><a asp-controller="formapagos" asp-action="index"><i class="ti-layers"></i> Forma de pago</a></li>
                                         </ul>
+
                                     </div>
                                     <div class="col-sm-4 col-md-3">
+
                                         <ul class="list-unstyled">
-                                            <li>
-                                                <a href="#" class="media mar-btm">                                                  
-                                                    <div class="media-left">
-                                                        <i class="demo-pli-data-settings icon-2x"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <p class="text-semibold text-main mar-no">Usuarios</p>
-                                                        <small class="text-muted">Administracion de usuario</small>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="media mar-btm">
-                                                    <div class="media-left">
-                                                        <i class="demo-pli-support icon-2x"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <p class="text-semibold text-main mar-no">Perfiles</p>
-                                                        <small class="text-muted">Definir roles por perfiles</small>
-                                                    </div>
-                                                </a>
-                                            </li>                                           
-                                            <li>
-                                                <a href="#" class="media mar-btm">
-                                                    <div class="media-left">
-                                                        <i class="demo-pli-map-2 icon-2x"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <p class="text-semibold text-main mar-no">Reportes</p>
-                                                        <small class="text-muted">Definir parametros en reportes</small>
-                                                    </div>
-                                                </a>
-                                            </li>
+                                            <li class="dropdown-header"><i class="ti-shopping-cart icon-lg icon-fw"></i> Compras</li>
+                                            <li><a asp-controller="clientes" asp-action="index"><i class="ti-truck"></i> Proveeedores</a></li>
                                         </ul>
-                                    </div>                                    
+
+                                    </div>
+
+                                    <div class="col-sm-4 col-md-3">
+
+                                        <ul class="list-unstyled">
+                                            <li class="dropdown-header"><i class="ti-layers icon-lg icon-fw"></i> Servicios</li>
+                                            <li><a asp-controller="servicios" asp-action="index"><i class="ti-clipboard"></i> Servicios</a></li>
+                                            <li><a asp-controller="serviciosestandares" asp-action="index"><i class="ti-list"></i> Estandares</a></li>
+                                        </ul>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-4 col-md-3">
+
+                                        <ul class="list-unstyled">
+                                            <li class="dropdown-header"><i class="ti-settings icon-lg icon-fw"></i> Administracion</li>
+                                            <li><a asp-controller="perfiles" asp-action="index"><i class="fa fa-users"></i> Usuarios</a></li>
+                                            <li><a asp-controller="roles" asp-action="index"><i class="demo-pli-receipt-4"></i> Permisos</a></li>
+                                            <li><a asp-controller="areas" asp-action="index"><i class="fa fa-map-marker"></i> Areas</a></li>
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
                         </li>
-                    
+
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                                 <i class="demo-pli-bell"></i>
@@ -208,10 +205,11 @@
                                                         <small>30 minutes ago</small>
                                                     </div>
                                                 </a>
-                                            </li>                                            
+                                            </li>
                                         </ul>
                                     </div>
-                                <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div>
+                                    <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div>
+                                </div>
 
                                 <div class="pad-all bord-top">
                                     <a href="#" class="btn-link text-main box-block">
@@ -220,12 +218,12 @@
                                 </div>
                             </div>
                         </li>
-                    
+
                         <li id="dropdown-user" class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
-                                <span class="ic-user pull-right">                                   
+                                <span class="ic-user pull-right">
                                     <i class="demo-pli-male"></i>
-                                </span>                              
+                                </span>
                             </a>
 
 
@@ -243,295 +241,37 @@
                                 </ul>
                             </div>
                         </li>
-                    
+
                         <li>
                             <a asp-controller="cuenta" asp-action="lockout"><i style="font-size: 22px;vertical-align: -webkit-baseline-middle;" class="ion-log-out"></i></a>
                         </li>
                     </ul>
                 </div>
-            
+
             </div>
         </header>
-    
+
         <div class="boxed">
 
             <div id="content-container">
                 <div id="page-content">
-                     @RenderBody()                   
+                    @RenderBody()
                 </div>
-                
+
 
             </div>
-        <!--
-            <aside id="aside-container">
-                <div id="aside">
-                    <div class="nano has-scrollbar">
-                        <div class="nano-content" tabindex="0" style="right: -17px;">
-                            
-                          
-                            <ul class="nav nav-tabs nav-justified">
-                                <li class="active">
-                                    <a href="#demo-asd-tab-1" data-toggle="tab">
-                                        <i class="demo-pli-speech-bubble-7 icon-lg"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#demo-asd-tab-2" data-toggle="tab">
-                                        <i class="demo-pli-information icon-lg icon-fw"></i> Report
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#demo-asd-tab-3" data-toggle="tab">
-                                        <i class="demo-pli-wrench icon-lg icon-fw"></i> Settings
-                                    </a>
-                                </li>
-                            </ul>
-                          
-                        
-                            <div class="tab-content">
 
-                               
-                                <div class="tab-pane fade in active" id="demo-asd-tab-1">
-                                    <p class="pad-all text-main text-sm text-uppercase text-bold">
-                                        <span class="pull-right badge badge-warning">3</span> Family
-                                    </p>
-
-                                   
-                                    <div class="list-group bg-trans">
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/2.png" alt="Profile Picture">
-                                                <i class="badge badge-success badge-stat badge-icon pull-left"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Stephen Tran</p>
-                                                <small class="text-muteds">Availabe</small>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/7.png" alt="Profile Picture">
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Brittany Meyer</p>
-                                                <small class="text-muteds">I think so</small>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/1.png" alt="Profile Picture">
-                                                <i class="badge badge-info badge-stat badge-icon pull-left"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Jack George</p>
-                                                <small class="text-muteds">Last Seen 2 hours ago</small>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/4.png" alt="Profile Picture">
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Donald Brown</p>
-                                                <small class="text-muteds">Lorem ipsum dolor sit amet.</small>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/8.png" alt="Profile Picture">
-                                                <i class="badge badge-warning badge-stat badge-icon pull-left"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Betty Murphy</p>
-                                                <small class="text-muteds">Idle</small>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <div class="media-left pos-rel">
-                                                <img class="img-circle img-xs" src="img/profile-photos/9.png" alt="Profile Picture">
-                                                <i class="badge badge-danger badge-stat badge-icon pull-left"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <p class="mar-no text-main">Samantha Reid</p>
-                                                <small class="text-muteds">Offline</small>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <hr>
-                                    <p class="pad-all text-main text-sm text-uppercase text-bold">
-                                        <span class="pull-right badge badge-success">Offline</span> Friends
-                                    </p>
-
-                                  
-                                    <div class="list-group bg-trans">
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge badge-purple badge-icon badge-fw pull-left"></span> Joey K. Greyson
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge badge-info badge-icon badge-fw pull-left"></span> Andrea Branden
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge badge-success badge-icon badge-fw pull-left"></span> Johny Juan
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge badge-danger badge-icon badge-fw pull-left"></span> Susan Sun
-                                        </a>
-                                    </div>
-
-
-                                    <hr>
-                                    <p class="pad-all text-main text-sm text-uppercase text-bold">News</p>
-
-                                    <div class="pad-hor">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer
-                                            <a data-title="45%" class="add-tooltip text-semibold text-main" href="#" data-original-title="" title="">adipiscing elit</a>, sed diam nonummy nibh. Lorem ipsum dolor sit amet.
-                                        </p>
-                                        <small><em>Last Update : Des 12, 2014</em></small>
-                                    </div>
-
-
-                                </div>
-                               
-                                <div class="tab-pane fade" id="demo-asd-tab-2">
-
-                                  
-                                    <div class="pad-all">
-                                        <p class="pad-ver text-main text-sm text-uppercase text-bold">Billing &amp; reports</p>
-                                        <p>Get <strong class="text-main">$5.00</strong> off your next bill by making sure your full payment reaches us before August 5, 2018.</p>
-                                    </div>
-                                    <hr class="new-section-xs">
-                                    <div class="pad-all">
-                                        <span class="pad-ver text-main text-sm text-uppercase text-bold">Amount Due On</span>
-                                        <p class="text-sm">August 17, 2018</p>
-                                        <p class="text-2x text-thin text-main">$83.09</p>
-                                        <button class="btn btn-block btn-success mar-top">Pay Now</button>
-                                    </div>
-
-
-                                    <hr>
-
-                                    <p class="pad-all text-main text-sm text-uppercase text-bold">Additional Actions</p>
-
-                                  
-                                    <div class="list-group bg-trans">
-                                        <a href="#" class="list-group-item"><i class="demo-pli-information icon-lg icon-fw"></i> Service Information</a>
-                                        <a href="#" class="list-group-item"><i class="demo-pli-mine icon-lg icon-fw"></i> Usage Profile</a>
-                                        <a href="#" class="list-group-item"><span class="label label-info pull-right">New</span><i class="demo-pli-credit-card-2 icon-lg icon-fw"></i> Payment Options</a>
-                                        <a href="#" class="list-group-item"><i class="demo-pli-support icon-lg icon-fw"></i> Message Center</a>
-                                    </div>
-
-
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <div><i class="demo-pli-old-telephone icon-3x"></i></div>
-                                        Questions?
-                                        <p class="text-lg text-semibold text-main"> (415) 234-53454 </p>
-                                        <small><em>We are here 24/7</em></small>
-                                    </div>
-                                </div>
-                              
-                                <div class="tab-pane fade" id="demo-asd-tab-3">
-                                    <ul class="list-group bg-trans">
-                                        <li class="pad-top list-header">
-                                            <p class="text-main text-sm text-uppercase text-bold mar-no">Account Settings</p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-1" type="checkbox" checked="">
-                                                <label for="demo-switch-1"></label>
-                                            </div>
-                                            <p class="mar-no text-main">Show my personal status</p>
-                                            <small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-2" type="checkbox" checked="">
-                                                <label for="demo-switch-2"></label>
-                                            </div>
-                                            <p class="mar-no text-main">Show offline contact</p>
-                                            <small class="text-muted">Aenean commodo ligula eget dolor. Aenean massa.</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-3" type="checkbox">
-                                                <label for="demo-switch-3"></label>
-                                            </div>
-                                            <p class="mar-no text-main">Invisible mode </p>
-                                            <small class="text-muted">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </small>
-                                        </li>
-                                    </ul>
-
-
-                                    <hr>
-
-                                    <ul class="list-group pad-btm bg-trans">
-                                        <li class="list-header"><p class="text-main text-sm text-uppercase text-bold mar-no">Public Settings</p></li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-4" type="checkbox" checked="">
-                                                <label for="demo-switch-4"></label>
-                                            </div>
-                                            Online status
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-5" type="checkbox" checked="">
-                                                <label for="demo-switch-5"></label>
-                                            </div>
-                                            Show offline contact
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="pull-right">
-                                                <input class="toggle-switch" id="demo-switch-6" type="checkbox" checked="">
-                                                <label for="demo-switch-6"></label>
-                                            </div>
-                                            Show my device icon
-                                        </li>
-                                    </ul>
-
-
-
-                                    <hr>
-
-                                    <p class="pad-hor text-main text-sm text-uppercase text-bold mar-no">Task Progress</p>
-                                    <div class="pad-all">
-                                        <p class="text-main">Upgrade Progress</p>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar progress-bar-success" style="width: 15%;"><span class="sr-only">15%</span></div>
-                                        </div>
-                                        <small>15% Completed</small>
-                                    </div>
-                                    <div class="pad-hor">
-                                        <p class="text-main">Database</p>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar progress-bar-danger" style="width: 75%;"><span class="sr-only">75%</span></div>
-                                        </div>
-                                        <small>17/23 Database</small>
-                                    </div>
-
-                                </div>                              
-
-                            </div>
-                        </div>
-                    <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 1714px; transform: translate(0px, 0px);"></div></div></div>
-                </div>
-            </aside>
-        -->
             <nav id="mainnav-container">
                 <div id="mainnav">
 
-
-                
                     <div id="mainnav-menu-wrap">
                         <div class="nano has-scrollbar">
                             <div class="nano-content" tabindex="0" style="right: -17px;">
 
-                                
+
                                 <div id="mainnav-profile" class="mainnav-profile">
-                                    <div class="profile-wrap text-center">                                      
-                                       @await Html.PartialAsync("_InfoUser")
+                                    <div class="profile-wrap text-center">
+                                        @await Html.PartialAsync("_InfoUser")
                                     </div>
                                     <div id="profile-nav" class="collapse list-group bg-trans">
                                         <a href="#" class="list-group-item">
@@ -543,42 +283,42 @@
                                         <a href="#" class="list-group-item">
                                             <i class="demo-pli-information icon-lg icon-fw"></i> Bloquear pantalla
                                         </a>
-                                        
+
                                     </div>
                                 </div>
-                            
+
                                 <div id="mainnav-shortcut" class="hidden">
                                     <ul class="list-unstyled shortcut-wrap">
                                         <li class="col-xs-3" data-content="My Profile" data-original-title="" title="">
                                             <a class="shortcut-grid" href="#">
                                                 <div class="icon-wrap icon-wrap-sm icon-circle bg-mint">
-                                                <i class="demo-pli-male"></i>
+                                                    <i class="demo-pli-male"></i>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="col-xs-3" data-content="Messages" data-original-title="" title="">
                                             <a class="shortcut-grid" href="#">
                                                 <div class="icon-wrap icon-wrap-sm icon-circle bg-warning">
-                                                <i class="demo-pli-speech-bubble-3"></i>
+                                                    <i class="demo-pli-speech-bubble-3"></i>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="col-xs-3" data-content="Activity" data-original-title="" title="">
                                             <a class="shortcut-grid" href="#">
                                                 <div class="icon-wrap icon-wrap-sm icon-circle bg-success">
-                                                <i class="demo-pli-thunder"></i>
+                                                    <i class="demo-pli-thunder"></i>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="col-xs-3" data-content="Lock Screen" data-original-title="" title="">
                                             <a class="shortcut-grid" href="#">
                                                 <div class="icon-wrap icon-wrap-sm icon-circle bg-purple">
-                                                <i class="demo-pli-lock-2"></i>
+                                                    <i class="demo-pli-lock-2"></i>
                                                 </div>
                                             </a>
                                         </li>
                                     </ul>
-                                </div>                           
+                                </div>
 
                                 <ul id="mainnav-menu" class="list-group">
 
@@ -617,15 +357,10 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
-                                            <li><a href="ui-buttons.html">Buttons</a></li>
-                                            <li><a href="ui-panels.html">Panels</a></li>
-                                            <li><a href="ui-modals.html">Modals</a></li>
-                                            <li><a href="ui-progress-bars.html">Progress bars</a></li>
-                                            <li><a href="ui-components.html">Components</a></li>
-                                            <li><a href="ui-typography.html">Typography</a></li>
-                                            <li><a href="ui-list-group.html">List Group</a></li>
-                                            <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                                            <li><a href="ui-alerts-tooltips.html">Alerts &amp; Tooltips</a></li>
+                                            <li><a asp-controller="pendiente" asp-action="create">Nueva factura</a></li>
+                                            <li><a asp-controller="pendiente">Facturas por vencer</a></li>
+                                            <li><a asp-controller="pendiente">Facturas por cliente</a></li>
+                                            <li><a asp-controller="pendiente">Facturas vencidas</a></li>
 
                                         </ul>
                                     </li>
@@ -640,13 +375,13 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
-                                            <li><a href="forms-general.html">General</a></li>
-                                            <li><a href="forms-components.html">Advanced Components</a></li>
-                                            <li><a href="forms-validation.html">Validation</a></li>
-                                            <li><a href="forms-wizard.html">Wizard</a></li>
-                                            <li><a href="forms-file-upload.html">File Upload</a></li>
-                                            <li><a href="forms-text-editor.html">Text Editor</a></li>
-                                            <li><a href="forms-markdown.html">Markdown</a></li>
+                                            <li><a asp-controller="inventarios" asp-action="index">Lista</a></li>
+                                            <li><a asp-controller="pendiente">Crear nuevo</a></li>
+                                            <li><a asp-controller="pendiente">Existencias</a></li>
+                                            <li><a asp-controller="pendiente">Kardex</a></li>
+                                            <li><a asp-controller="pendiente">Costos</a></li>
+                                            <li><a asp-controller="pendiente">Por agotar</a></li>
+                                            <li><a asp-controller="pendiente">Por bodega</a></li>
 
                                         </ul>
                                     </li>
@@ -661,10 +396,12 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
-                                            <li><a href="tables-static.html">Static Tables</a></li>
-                                            <li><a href="tables-bootstrap.html">Bootstrap Tables</a></li>
-                                            <li><a href="tables-datatable.html">Data Tables</a></li>
-                                            <li><a href="tables-footable.html">Foo Tables</a></li>
+                                            <li><a asp-controller="pendiente">Lista</a></li>
+                                            <li><a asp-controller="pendiente">Nuevo cliente</a></li>
+                                            <li><a asp-controller="pendiente">En mora</a></li>
+                                            <li><a asp-controller="pendiente">Facturas por vencer</a></li>
+                                            <li><a asp-controller="pendiente">Facturas por cobrar</a></li>
+                                            <li><a asp-controller="pendiente">Creditos</a></li>
 
                                         </ul>
                                     </li>
@@ -679,30 +416,14 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
-                                            <li><a href="charts-morris-js.html">Morris JS</a></li>
-                                            <li><a href="charts-flot-charts.html">Flot Charts</a></li>
-                                            <li><a href="charts-easy-pie-charts.html">Easy Pie Charts</a></li>
-                                            <li><a href="charts-sparklines.html">Sparklines</a></li>
+                                            <li><a asp-controller="pendiente">Lista</a></li>
+                                            <li><a asp-controller="pendiente">Nuevo proveedor</a></li>
+                                            <li><a asp-controller="pendiente">Ordenes de compra</a></li>
+                                            <li><a asp-controller="pendiente">Facturas por pagar</a></li>
 
                                         </ul>
                                     </li>
 
-                                    <!--Menu list item-->
-                                    <li>
-                                        <a href="#">
-                                            <i class="demo-pli-map-2"></i>
-                                            <span class="menu-title">Areas</span>
-                                            <i class="arrow"></i>
-                                        </a>
-
-                                        <!--Submenu-->
-                                        <ul class="collapse" aria-expanded="false">
-                                            <li><a asp-controller="areas" asp-action="index">Lista</a></li>
-                                            <li><a asp-controller="areas" asp-action="create">Crear una area</a></li>
-                                            <li><a href="charts-easy-pie-charts.html">Areas por usuario</a></li>
-
-                                        </ul>
-                                    </li>
 
                                     <!--Menu list item-->
                                     <li>
@@ -714,34 +435,8 @@
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
-                                            <li><a href="misc-timeline.html">Timeline</a></li>
-                                            <li><a href="misc-maps.html">Google Maps</a></li>
-                                            <li><a href="xplugins-notifications.html">Notifications<span class="label label-purple pull-right">Improved</span></a></li>
-                                            <li><a href="misc-nestable-list.html">Nestable List</a></li>
-                                            <li><a href="misc-animate-css.html">CSS Animations</a></li>
-                                            <li><a href="misc-css-loaders.html">CSS Loaders</a></li>
-                                            <li><a href="misc-spinkit.html">Spinkit</a></li>
-                                            <li><a href="misc-tree-view.html">Tree View</a></li>
-                                            <li><a href="misc-clipboard.html">Clipboard</a></li>
-                                            <li><a href="misc-x-editable.html">X-Editable</a></li>
-
-                                        </ul>
-                                    </li>
-
-                                    <!--Menu list item-->
-                                    <li>
-                                        <a href="#">
-                                            <i class="demo-pli-warning-window"></i>
-                                            <span class="menu-title">Grid System</span>
-                                            <i class="arrow"></i>
-                                        </a>
-
-                                        <!--Submenu-->
-                                        <ul class="collapse" aria-expanded="false">
-                                            <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
-                                            <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
-                                            <li><a href="grid-match-height.html">Match Height</a></li>
-                                            <li><a href="grid-masonry.html">Masonry</a></li>
+                                            <li><a asp-controller="pendiente">Ajustes de entrada</a></li>
+                                            <li><a asp-controller="pendiente">Ajustes de salida</a></li>
 
                                         </ul>
                                     </li>
@@ -768,68 +463,28 @@
 
                                         </ul>
 
-                                        <a href="#">
-                                            <i class="demo-pli-computer-secure"></i>
-                                            <span class="menu-title">Reportes</span>
-                                            <i class="arrow"></i>
-                                        </a>
                                     </li>
-
-                                    <!--Category name-->
-                                    <li class="list-header">Administracion</li>
-
-                                    <!--Menu list item-->
                                     <li>
                                         <a href="#">
                                             <i class="demo-pli-computer-secure"></i>
-                                            <span class="menu-title">Usuarios</span>
+                                            <span class="menu-title">Comprobantes</span>
                                             <i class="arrow"></i>
                                         </a>
 
                                         <!--Submenu-->
                                         <ul class="collapse" aria-expanded="false">
 
-                                            <li><a href="app-users-2.html">Nuevo usuario</a></li>
-                                            <li><a href="app-file-manager.html">Lista de usuarios</a></li>
+                                            <li><a href="app-users-2.html">Nuevo Comprobante</a></li>
+                                            <li><a href="app-file-manager.html">Comprobantes emitidos</a></li>
+                                            <li><a href="app-users.html">Tipo de comprobantes</a></li>
 
                                         </ul>
 
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="demo-pli-computer-secure"></i>
-                                            <span class="menu-title">Roles</span>
-                                            <i class="arrow"></i>
-                                        </a>
-
-                                        <!--Submenu-->
-                                        <ul class="collapse" aria-expanded="false">
-
-                                            <li><a href="app-users-2.html">Nuevo rol</a></li>
-                                            <li><a href="app-file-manager.html">Lista de roles</a></li>
-
-                                        </ul>
-
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="demo-pli-computer-secure"></i>
-                                            <span class="menu-title">Permisos</span>
-                                            <i class="arrow"></i>
-                                        </a>
-
-                                        <!--Submenu-->
-                                        <ul class="collapse" aria-expanded="false">
-
-                                            <li><a href="app-users-2.html">Nuevo permiso</a></li>
-                                            <li><a href="app-file-manager.html">Lista de permisos</a></li>
-
-                                        </ul>
-
-                                    </li>
-                                </ul>
+                                </ul>   
                             </div>
-                        <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 1714px; transform: translate(0px, 0px);"></div></div></div>
+                            <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 1714px; transform: translate(0px, 0px);"></div></div>
+                        </div>
                     </div>
                     <!--================================-->
                     <!--End menu-->
@@ -874,7 +529,6 @@
 
     </div>
     <!-- <partial name="_CookieConsentPartial" /> -->
-
     <!-- <div class="container body-content">
         @RenderBody()
         <hr />
@@ -892,7 +546,7 @@
         <script src="~/lib/eureka/plugins/bootbox/bootbox.min.js"></script>
     </environment>
     <environment exclude="Development">
-       
+
     </environment>
     <script>var pathBase = '@Url.Content("~/")';</script>
     @RenderSection("Scripts", required: false)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
@@ -24,17 +25,20 @@ namespace Eureka.Models
             ServiciosEstandaresModificados = new HashSet<ServicioEstandar>();
             ServiciosModificados = new HashSet<Servicio>();
         }
-
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
         public string Nombre { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        [Display(Name = "Rol")]
         public int RolId { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
         public string Contrasena { get; set; }
+        [Display(Name = "Area")]
         public int AreaId { get; set; }
         public string UrlTemporal { get; set; }
         public DateTime? UtcreadoEl { get; set; }
+        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Area Area { get; set; }

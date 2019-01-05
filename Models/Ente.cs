@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
@@ -15,11 +16,14 @@ namespace Eureka.Models
         }
 
         public int Id { get; set; }
+        [Display(Name = "Tipo")]
         public int TipoEnteId { get; set; }
+        [Display(Name = "Tipo Identificacion")]
         public int TipoIdentificacionId { get; set; }
         public string Identificacion { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public string NombreCompleto { get; set; }
+        [Display(Name = "Sexo")]
         public int? SexoId { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }

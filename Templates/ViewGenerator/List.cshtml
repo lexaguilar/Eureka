@@ -55,7 +55,7 @@
     else if (Model.IsLayoutPageSelected)
     {
 @:@@{
-    @:ViewData["Title"] = "@Model.ViewDataTypeShortName";
+    @:ViewData["Title"] = "@GetPostfijo(Model.ViewDataTypeShortName)";
         if (!string.IsNullOrEmpty(Model.LayoutPageFile))
         {
     @:Layout = "@Model.LayoutPageFile";
@@ -79,7 +79,7 @@
 @:<html>
 @:<head>
     @:<meta name="viewport" content="width=device-width" />
-    @:<title>@Model.ViewName</title>
+    @:<title>@GetPostfijo(Model.ViewName)</title>
 @:</head>
 @:<body>
         //    PushIndent("    ");
@@ -91,7 +91,7 @@
                 @:<li><a asp-action="create"><i class="ion-plus-circled ion-14px text-success"></i> Agregar @Model.ViewDataTypeShortName</a></li>
             @:</ul>
         @:</div>
-        @:<h3 class="panel-title">@Model.ViewDataTypeShortName</h3>
+        @:<h3 class="panel-title">@GetPostfijo(Model.ViewDataTypeShortName)</h3>
     @:</div>
 
     @:<div class="panel-body">

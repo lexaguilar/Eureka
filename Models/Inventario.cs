@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
@@ -19,13 +20,17 @@ namespace Eureka.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        [Display(Name = "Unidad Medida")]
         public int Um { get; set; }
+        [Display(Name ="Familia")]
         public int FamiliaId { get; set; }
+        [Display(Name = "Presentacion")]
         public int PresentacionId { get; set; }
         public string CreadoPor { get; set; }
         public DateTime CreadoEl { get; set; }
         public string ModificadoPor { get; set; }
         public DateTime? ModificadoEl { get; set; }
+        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Perfil CreadoPorNavigation { get; set; }

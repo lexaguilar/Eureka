@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
@@ -19,6 +20,7 @@ namespace Eureka.Models
         public DateTime CreadoEl { get; set; }
         public string ModificadoPor { get; set; }
         public DateTime? ModificadoEl { get; set; }
+        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Perfil CreadoPorNavigation { get; set; }

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Eureka.Models.Categoria>
+    
+@{
+    ViewData["Title"] = "Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+   @await Html.PartialAsync("_CssIndex")
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <ul class="pager pager-rounded">
+                <li><a asp-action="create"><i class="ion-plus-circled ion-14px text-success"></i> Agregar Categoria</a></li>
+            </ul>
+        </div>
+        <h3 class="panel-title">Categorias</h3>
+    </div>
+    <div class="panel-body">
+        <div class="dx-viewport">
+            <div class="demo-container">
+                <div id="dxGrid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    @await Html.PartialAsync("_ScriptsIndex")
+    <script>
+        var categorias = new DevExpress.data.CustomStore({
+            load: function (loadOptions) {
+                var deferred = $.Deferred(),
+                    args = {};
+                $.ajax({
+                    url: pathBase + `categorias/listar`,
+                    dataType: "json",
+                    success: function(result) {
+                        deferred.resolve(result, { totalCount: result.length });
+                    },
+                    error: function() {
+                        deferred.reject("Data Loading Error");
+                    },
+                    timeout: 15000
+                });
+                return deferred.promise();
+            }
+        });
+        $('#dxGrid').dxDataGrid({
+            keyExpr: "Id",
+            dataSource: {
+                store: categorias
+            },
+            columnsAutoWidth: true,
+            hoverStateEnabled: true,
+            allowColumnResizing: true,
+            headerFilter: {
+                visible: true
+            },
+            filterRow: {
+                visible: true,
+                applyFilter: "auto"
+            },
+            columns: [{
+                        width : 100,       
+                        caption: '',
+                        dataField: 'Id',                               
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<a class='btn btn-xs btn-mint' href='${pathBase}categorias/edit/${options.value}'><span class='ion-edit'></span> Editar</a>`) 
+                                .appendTo(container);
+                           }
+                        } ,
+                                {
+                      width: 50,
+                      caption: '#',
+                      dataField: 'Id',
+                    },
+
+                        'Descripcion','Nota'
+,{
+                        width : 100,       
+                        caption: '',
+                        dataField: 'Id',                               
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<a class='btn btn-xs btn-default' href='${pathBase}categorias/details/${options.value}'><span class='ion-android-list text-info'></span> Detalle</a>`) 
+                                .appendTo(container);
+                           }
+                        }            ],
+            summary: {
+                totalItems: [ {
+                    column: "Id",
+                    summaryType: "count",
+                    customizeText: function(data) {
+                        return  data.value +' categorias';
+                    }
+                }]
+            },
+        }).dxDataGrid("instance");
+    </script>
+}

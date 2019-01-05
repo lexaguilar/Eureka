@@ -37,16 +37,16 @@
           "renameLocals": true
         },
         "sourceMap": false
-    },
-    {
-        "outputFileName": "wwwroot/js/models/inventario.min.js",
-        "inputFiles": [
-            "wwwroot/js/models/inventario.model.js"
-        ],
-        "minify": {
-          "enabled": true,
-          "renameLocals": true
-        },
-        "sourceMap": false
     }
+    //{
+    //    "outputFileName": "wwwroot/js/models/inventario.min.js",
+    //    "inputFiles": [
+    //        "wwwroot/js/models/inventario.model.js"
+    //    ],
+    //    "minify": {
+    //      "enabled": true,
+    //      "renameLocals": true
+    //    },
+    //    "sourceMap": false
+    //}
 ]

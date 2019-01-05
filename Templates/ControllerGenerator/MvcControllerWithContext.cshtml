@@ -105,7 +105,7 @@ namespace @Model.ControllerNamespace
             }
             else
             {
-                @:return Json(await _context.@(entitySetName).ToListAsync());
+                @:return Json(await _context.@(entitySetName).ToListAsync(), config);
             }
     }        }
 

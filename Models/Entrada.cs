@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
@@ -13,10 +14,14 @@ namespace Eureka.Models
         }
 
         public int Id { get; set; }
+        [Display(Name = "Area")]
         public int AreaId { get; set; }
+        [Display(Name = "Tipo entrada")]
         public int TipoEntradaId { get; set; }
+        [Display(Name = "Forma pago")]
         public int FormaPagoId { get; set; }
         public DateTime Fecha { get; set; }
+        [Display(Name = "Proveedor")]
         public int EnteId { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Descuento { get; set; }
@@ -25,7 +30,9 @@ namespace Eureka.Models
         public int DiasPlazo { get; set; }
         public string Observacion { get; set; }
         public decimal Abonado { get; set; }
+        [Display(Name = "Salida #")]
         public int? SalidaId { get; set; }
+        [Display(Name = "Compra #")]
         public int? CompraId { get; set; }
         public string CreadoPor { get; set; }
         public DateTime CreadoEl { get; set; }

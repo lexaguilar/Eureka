@@ -100,10 +100,6 @@
             @{
                 @:<hr class="new-section-sm">
                 @:<a class="btn btn-sm btn-default" asp-action="index"><i class="ion-arrow-left-b ion-14px"></i> Regresar al listado</a>
-
-
-
-
             }
         </div>
     </div>
@@ -118,13 +114,9 @@
         @:@@await Html.PartialAsync("_ScriptsDETAILS")
         @:<environment include="Development">
             @:<script src="~/js/models/@{@Model.ViewDataTypeShortName.ToLower()}.model.js" asp-append-version="true"></script>
-
-
         @:</environment>
         @:<environment exclude="Development">
             @:<script src="~/js/models/@{@Model.ViewDataTypeShortName.ToLower()}.min.js" asp-append-version="true"></script>
-
-
         @:</environment>
         @:<script>
                 @://
@@ -141,12 +133,12 @@
 @:</html>
 }
 @:@@*
-@:_modelsList.add({
-@:entity: '@Model.ViewDataTypeShortName.ToLower()',
+@:_entitiesList.add({
+@:name: '@Model.ViewDataTypeShortName.ToLower()',
 @:urlGet: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListar',
-@:urlGetPartial: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListarCompletar'
+@:urlGetPartial: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListarCompletar',
 @:urlCreate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/create`,
-@:urlUpdate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/update`,
+@:urlUpdate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/edit`,
 @:load: function (page) {
 @:        $('#@GetPostfijo(Model.ViewDataTypeShortName.ToLower())').loadData(this, page);
 @:},
@@ -164,6 +156,10 @@
             @:{
             @:id: '@property.PropertyName',
             @:type: stores.types.select,
+            if(property.IsPrimaryKey)
+            {
+            @:key : true,
+            }
             if(!esRequido)
             {
             @:requiredSave: () => true,
@@ -175,10 +171,15 @@
             {
             @:{
             @:id: '@property.PropertyName',
+            @:type : stores.types.editable
             if(!esRequido)
             {
             @:requiredSave: () => true,
             @:messageEmpty: 'El @property.PropertyName es requerido',
+            }
+            if(property.IsPrimaryKey)
+            {
+            @:key : true,
             }
             @:},
             }
