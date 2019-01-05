@@ -9,7 +9,7 @@
     },
     models: [
         {
-            id: 'Id'
+            id: 'Id',
             requiredSave: () => true,
             messageEmpty: 'El Id es requerido',
             key: true
