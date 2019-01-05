@@ -9,15 +9,14 @@
     },
     models: [
         {
-            id: 'Id',
-            type: stores.types.editable
+            id: 'Id'
             requiredSave: () => true,
             messageEmpty: 'El Id es requerido',
-            key: true,
+            key: true
         },
         {
             id: 'Descripcion',
-            type: stores.types.editable
+            type: stores.types.editable,
             requiredSave: () => true,
             messageEmpty: 'El Descripcion es requerido',
         },

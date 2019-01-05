@@ -153,35 +153,37 @@
             var esRequido = property.TypeName.Contains("System.Nullable");
             if (property.IsForeignKey)
             {
-            @:{
-            @:id: '@property.PropertyName',
-            @:type: stores.types.select,
-            if(property.IsPrimaryKey)
-            {
-            @:key : true,
-            }
-            if(!esRequido)
-            {
-            @:requiredSave: () => true,
-            @:messageEmpty: 'El @property.PropertyName es requerido',
-            }
-            @:},
-            }
+                @:{
+                @:id: '@property.PropertyName',
+                @:type: stores.types.select,
+                if(property.IsPrimaryKey)
+                {
+                    @:key : true
+                }
+                if(!esRequido)
+                {
+                    @:requiredSave: () => true,
+                    @:messageEmpty: 'El @property.PropertyName es requerido',
+                }
+                @:},
+                }
             else
             {
-            @:{
-            @:id: '@property.PropertyName',
-            @:type : stores.types.editable
-            if(!esRequido)
-            {
-            @:requiredSave: () => true,
-            @:messageEmpty: 'El @property.PropertyName es requerido',
-            }
-            if(property.IsPrimaryKey)
-            {
-            @:key : true,
-            }
-            @:},
+                @:{
+                @:id: '@property.PropertyName',
+                if(property.IsPrimaryKey)
+                {
+                    @:key : true
+                }else{
+                    @:type : stores.types.editable,
+                }
+                if(!esRequido)
+                {
+                @:requiredSave: () => true,
+                @:messageEmpty: 'El @property.PropertyName es requerido',
+                }
+                
+                @:},
             }
 
 
