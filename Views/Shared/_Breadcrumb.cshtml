@@ -1,0 +1,14 @@
+@model string[]
+<div id="page-head">
+
+    <!--Breadcrumb-->
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <ol class="breadcrumb">
+        <li><a asp-controller="home" asp-action="index"><i class="demo-pli-home"></i></a></li>
+        <li><a asp-controller="@Model[0].ToLower()" asp-action="index">@Model[0]</a></li>
+        <li class="active">@Model[1]</li>
+    </ol>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--End breadcrumb-->
+
+</div>

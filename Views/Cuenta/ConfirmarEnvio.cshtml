@@ -1,0 +1,51 @@
+@model string
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Informativo | Eureka</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+    <link href="~/lib/eureka/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/eureka/css/nifty.min.css" rel="stylesheet">
+
+</head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body class="pace-done"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+    <div id="container" class="cls-container">
+		<div class="cls-header">
+		    <div class="cls-brand">
+		        <a class="box-inline" href="index.html">
+		            <span class="brand-title">Eureka</span>
+		        </a>
+		    </div>
+		</div>
+        
+		<div class="cls-content">
+		    <p class="h4 text-uppercase text-bold">Correo enviado!</p>
+		    <div class="pad-btm">
+		        Hemos enviado al correo <b>@Model</b> la opción para restablecer su contraseña, por favor ingrese a su cuenta de correo.
+		    </div>
+		    
+		    <hr class="new-section-sm bord-no">
+		    <div class="pad-top"><a class="btn btn-primary" asp-controller="cuenta" asp-action="login">Ir al login</a></div>
+		</div>		
+		
+    </div>
+    <script src="~/lib/eureka/js/jquery.min.js"></script>
+    <script src="~/lib/eureka/js/bootstrap.min.js"></script>
+    <script src="~/lib/eureka/js/nifty.min.js"></script>
+   
+</body>
+</html>

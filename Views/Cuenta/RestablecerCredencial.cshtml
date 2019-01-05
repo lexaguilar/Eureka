@@ -1,0 +1,82 @@
+@model Eureka.Models.ViewModels.ResetPasswordViewModel;
+@{
+    ViewData["Title"] = "Recuperar";
+    Layout = null;
+}
+
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Restablecer | Eureka</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+    <link href="~/lib/eureka/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/eureka/css/nifty.min.css" rel="stylesheet">
+        
+</head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body class="  pace-done"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+    <div id="container" class="cls-container">
+        
+		<!-- BACKGROUND IMAGE -->
+		<!--===================================================-->
+		<div id="bg-overlay"></div>
+		
+		
+		<!-- PASSWORD RESETTING FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+		    <div class="cls-content-sm panel">
+		        <div class="panel-body">
+		            <h1 class="h3">Restablecer la contraseña</h1>
+		            <p class="pad-btm">Escriba sus nuevas credenciales.</p>
+					
+		            <form id="target" asp-controller="cuenta" asp-action="restablecerCredenciales" method="post">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		                <div class="form-group">
+							<input asp-for="Username" class="form-control" autofocus="" readonly>
+							<span asp-validation-for="Username" class="text-danger"></span>
+		                </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="form-control" required />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" required />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+		                <div class="form-group text-right">
+		                    <button id="btnLogin" class="btn btn-success btn-lg btn-block" type="submit">Restablecer</button>
+		                </div>
+		            </form>
+		            <div class="pad-top">
+		                <a asp-controller="cuenta" asp-action="login" class="btn-link text-bold text-main">Ir al login</a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--===================================================-->		
+		
+    </div>
+
+    <script src="~/lib/eureka/js/jquery.min.js"></script>
+    <script src="~/lib/eureka/js/bootstrap.min.js"></script>
+    <script src="~/lib/eureka/js/nifty.min.js"></script>   
+    <script>
+		$("#target" ).submit(function( event ) {		
+			$('#btnLogin').attr('disabled','disabled');
+			$('#btnLogin').html('Restableciendo...');
+		});       
+    </script>
+</body>
+</html>

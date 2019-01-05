@@ -1,0 +1,213 @@
+﻿@inherits Microsoft.VisualStudio.Web.CodeGeneration.Templating.RazorTemplateBase
+@using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore
+@using System.Collections.Generic
+@using System.Linq
+@@model @GetEnumerableTypeExpression(Model.ViewDataTypeName)
+@{
+    string[] PropertiesExcept = { "EstadoId", "CreadoPor", "CreadoEl", "ModificadoPor", "ModificadoEl" };
+    var primaryKeyName = Model.ModelMetadata.PrimaryKeys[0].PropertyName;
+    var modelProperties = new List<string>();
+    var hasId = false;
+    foreach (var property in Model.ModelMetadata.Properties)
+    {
+        if (property.Scaffold)
+        {
+            modelProperties.Add(property.PropertyName);
+            if(property.PropertyName == primaryKeyName)
+            {
+                hasId = true;
+            }
+        }
+    }
+    var bindString = string.Join(",", modelProperties);
+
+    var bindStringCustom = string.Join(",", modelProperties.Where(z => !PropertiesExcept.Contains(z)));
+
+    var controller = @GetPostfijo(Model.ViewDataTypeShortName.ToLower());
+
+    string edicionesEditar = @"{
+                        width : 100,       
+                        caption: '',
+                        dataField: '" + @primaryKeyName + @"',                               
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<a class='btn btn-xs btn-mint' href='${pathBase}" + controller + @"/edit/${options.value}'><span class='ion-edit'></span> Editar</a>`) 
+                                .appendTo(container);
+                           }
+                        }";
+
+    string edicionesEliminar = @",{
+                        width : 100,       
+                        caption: '',
+                        dataField: 'Id',                               
+                        cellTemplate: function (container, options) {
+                            $('<div>')
+                                .append(`<a class='btn btn-xs btn-default' href='${pathBase}" + controller + @"/details/${options.value}'><span class='ion-android-list text-info'></span> Detalle</a>`) 
+                                .appendTo(container);
+                           }
+                        }";
+}
+    
+@{
+    if (Model.IsPartialView)
+    {
+    }
+    else if (Model.IsLayoutPageSelected)
+    {
+@:@@{
+    @:ViewData["Title"] = "@Model.ViewDataTypeShortName";
+        if (!string.IsNullOrEmpty(Model.LayoutPageFile))
+        {
+    @:Layout = "@Model.LayoutPageFile";
+        }
+@:}
+@:
+@:@@section Styles
+@:{
+   @:@@await Html.PartialAsync("_CssIndex")
+@:}
+@:
+    }
+    else
+    {
+@:@@{
+    @:Layout = null;
+@:}
+@:
+@:<!DOCTYPE html>
+@:
+@:<html>
+@:<head>
+    @:<meta name="viewport" content="width=device-width" />
+    @:<title>@Model.ViewName</title>
+@:</head>
+@:<body>
+        //    PushIndent("    ");
+    }
+@:<div class="panel">
+    @:<div class="panel-heading">
+        @:<div class="panel-control">
+            @:<ul class="pager pager-rounded">
+                @:<li><a asp-action="create"><i class="ion-plus-circled ion-14px text-success"></i> Agregar @Model.ViewDataTypeShortName</a></li>
+            @:</ul>
+        @:</div>
+        @:<h3 class="panel-title">@Model.ViewDataTypeShortName</h3>
+    @:</div>
+
+    @:<div class="panel-body">
+        @:<div class="dx-viewport">
+            @:<div class="demo-container">
+                @:<div id="dxGrid"></div>
+            @:</div>
+        @:</div>
+    @:</div>
+@:</div>
+
+@:@@section Scripts
+@:{
+    @:@@await Html.PartialAsync("_ScriptsIndex")
+    @:<script>
+        @:var @GetPostfijo(Model.ViewDataTypeShortName.ToLower()) = new DevExpress.data.CustomStore({
+            @:load: function (loadOptions) {
+                @:var deferred = $.Deferred(),
+                    @:args = {};
+
+                @:$.ajax({
+                    @:url: pathBase + `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/listar`,
+                    @:dataType: "json",
+                    @:success: function(result) {
+                        @:deferred.resolve(result, { totalCount: result.length });
+                    @:},
+                    @:error: function() {
+                        @:deferred.reject("Data Loading Error");
+                    @:},
+                    @:timeout: 15000
+                @:});
+
+                @:return deferred.promise();
+            @:}
+        @:});
+
+        @:$('#dxGrid').dxDataGrid({
+            @:keyExpr: "@primaryKeyName",
+            @:dataSource: {
+                @:store: @GetPostfijo(Model.ViewDataTypeShortName.ToLower())
+            @:},
+            @:columnsAutoWidth: true,
+            @:hoverStateEnabled: true,
+            @:allowColumnResizing: true,
+            @:headerFilter: {
+                @:visible: true
+            @:},
+            @:filterRow: {
+                @:visible: true,
+                @:applyFilter: "auto"
+            @:},
+            @:columns: [@edicionesEditar ,
+
+            @:@{
+                if (hasId)
+                {
+                    @:{
+                      @:width: 50,
+                      @:caption: '#',
+                      @:dataField: 'Id',
+                    @:},
+                    bindStringCustom = bindStringCustom.Replace("Id,", "");
+                }
+            }
+            @:@string.Join(",",bindStringCustom.Split(",").Select(c => $"'{c}'"))
+            @edicionesEliminar
+            @:],
+
+            @:summary: {
+                @:totalItems: [ {
+                    @:column: "@primaryKeyName",
+                    @:summaryType: "count",
+                    @:customizeText: function(data) {
+                        @:return  data.value +' @GetPostfijo(Model.ViewDataTypeShortName.ToLower())';
+                    @:}
+                @:}]
+            @:},
+        @:}).dxDataGrid("instance");
+    @:</script>
+@:}
+
+}
+@functions
+{
+    string GetPrimaryKeyName()
+    {
+        return (Model.ModelMetadata.PrimaryKeys != null && Model.ModelMetadata.PrimaryKeys.Length == 1)
+        ? Model.ModelMetadata.PrimaryKeys[0].PropertyName
+        : null;
+    }
+
+    string GetValueExpression(IPropertyMetadata property)
+    {
+        return property.PropertyName;
+    }
+
+    string GetValueExpression(INavigationMetadata navigation)
+    {
+        return navigation.AssociationPropertyName;
+    }
+
+    string GetEnumerableTypeExpression(string typeName)
+    {
+        return "IEnumerable<" + typeName + ">";
+    }
+    string GetPostfijo(string s)
+    {
+        string[] vocales = { "a", "e", "i", "o", "u" };
+
+        if (vocales.Contains(s.Last().ToString()))
+            return $"{s}s";
+        else if(s.Last().ToString() == "s")
+            return $"{s}";
+        else
+            return $"{s}es";
+
+
+    }
+}

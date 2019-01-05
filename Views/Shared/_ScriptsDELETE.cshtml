@@ -1,0 +1,18 @@
+﻿@model string
+<script>
+    var confirm = false;
+    $("form.delete-confirm").submit(function (event) {
+
+        if (!confirm) {
+            event.preventDefault();
+            bootbox.confirm("Esta seguro de eliminar el registro @Model?", function (result) {
+                if (result) {
+                    confirm = true;
+                    $("form.delete-confirm").submit();
+                } 
+            });
+        } 
+                   
+    });    
+    
+</script>

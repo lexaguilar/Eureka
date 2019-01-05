@@ -1,0 +1,6 @@
+@using Eureka.Extensions;
+@if (Context.User.Identity.IsAuthenticated)
+{
+    var user = this.User.GetServiceUser();
+    <strong>Bodega: </strong> @user.Area
+}

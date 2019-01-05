@@ -1,0 +1,231 @@
+﻿@inherits Microsoft.VisualStudio.Web.CodeGeneration.Templating.RazorTemplateBase
+@using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore
+@using System.Collections.Generic
+@using System.Linq
+@@model @Model.ViewDataTypeName
+@{
+    var relatedProperties = new Dictionary<string, dynamic>();
+    foreach (var nav in Model.ModelMetadata.Navigations)
+    {
+        relatedProperties.Add(nav.AssociationPropertyName, nav);
+
+    }
+    string[] PropertiesExcept = { "CreadoPor", "CreadoEl", "ModificadoPor", "ModificadoEl" };
+    string pkName = GetPrimaryKeyName();
+    if (Model.IsPartialView)
+    {
+    }
+    else if (Model.IsLayoutPageSelected)
+    {
+        @:@@{
+        @:ViewData["Title"] = "@Model.ViewName";
+        if (!string.IsNullOrEmpty(Model.LayoutPageFile))
+        {
+            @:Layout = "@Model.LayoutPageFile";
+        }
+        @:}
+
+    }
+    else
+    {
+        @:@@{
+        @:Layout = null;
+        @:}
+        @:
+        @:<!DOCTYPE html>
+        @:
+        @:<html>
+        @:<head>
+            @:<meta name="viewport" content="width=device-width" />
+            @:<title>@Model.ViewName</title>
+        @:</head>
+        @:<body>
+            @:
+            //    PushIndent("    ");
+        }
+        @:@@section Styles
+        @:{
+        @:@@await Html.PartialAsync("_CssDetailsDelete")
+        @:}
+        @:@@{
+        @:string[] info = { "@GetPostfijo(Model.ViewDataTypeShortName)", "detalle" };
+        @:}
+        @:@@await Html.PartialAsync("_Breadcrumb", info)
+}
+<div class="col-md-5">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            @{
+                foreach (var property in Model.ModelMetadata.Properties)
+                {
+                    if (property.IsPrimaryKey)
+                    {
+                        @:<div class="panel-control">
+                            @:<ul class="pager pager-rounded">
+                                @:<li><a asp-action="edit" asp-route-id="@@Model.@pkName" class="btn btn-mint btn-rounded"><i class="ion-edit"></i> Editar @Model.ViewDataTypeShortName</a></li>
+                                @:<li><a asp-action="delete" asp-route-id="@@Model.@pkName" class="btn btn-danger btn-rounded"><span class="ion-close"></span> Eliminar @Model.ViewDataTypeShortName</a></li>
+                            @:</ul>
+                        @:</div>
+                        @:<h3 class="panel-title">Detalle del @Model.ViewDataTypeShortName #@@Html.DisplayFor(model => model.@GetValueExpression(property))</h3>
+                    }
+                }
+            }
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @{
+                    foreach (var property in Model.ModelMetadata.Properties)
+                    {
+                        if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey)
+                        {
+                            <dt>
+                                @@Html.DisplayNameFor(model => model.@GetValueExpression(property)) :
+                            </dt>
+                            <dd>
+                                @@Html.DisplayFor(model => model.@GetValueExpression(property))
+                            </dd>
+                        }
+                    }
+                    foreach (var navigation in Model.ModelMetadata.Navigations)
+                    {
+                        <dt>
+                            @@Html.DisplayNameFor(model => model.@GetValueExpression(navigation)) :
+                        </dt>
+                        <dd>
+                            @@Html.DisplayFor(model => model.@GetValueExpression(navigation).@navigation.DisplayPropertyName)
+                        </dd>
+                    }
+                }
+            </dl>
+            @{
+                @:<hr class="new-section-sm">
+                @:<a class="btn btn-sm btn-default" asp-action="index"><i class="ion-arrow-left-b ion-14px"></i> Regresar al listado</a>
+
+
+
+
+            }
+        </div>
+    </div>
+
+</div>
+
+@{
+    if (Model.ReferenceScriptLibraries)
+    {
+        @:@@section Scripts {
+        @:@@await Html.PartialAsync("_ScriptsCRUD")
+        @:@@await Html.PartialAsync("_ScriptsDETAILS")
+        @:<environment include="Development">
+            @:<script src="~/js/models/@{@Model.ViewDataTypeShortName.ToLower()}.model.js" asp-append-version="true"></script>
+
+
+        @:</environment>
+        @:<environment exclude="Development">
+            @:<script src="~/js/models/@{@Model.ViewDataTypeShortName.ToLower()}.min.js" asp-append-version="true"></script>
+
+
+        @:</environment>
+        @:<script>
+                @://
+        @:</script>
+        @:}
+    }
+}
+
+@{
+    if (!Model.IsPartialView && !Model.IsLayoutPageSelected)
+    {
+        //ClearIndent();
+    @:</body>
+@:</html>
+}
+@:@@*
+@:_modelsList.add({
+@:entity: '@Model.ViewDataTypeShortName.ToLower()',
+@:urlGet: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListar',
+@:urlGetPartial: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListarCompletar'
+@:urlCreate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/create`,
+@:urlUpdate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/update`,
+@:load: function (page) {
+@:        $('#@GetPostfijo(Model.ViewDataTypeShortName.ToLower())').loadData(this, page);
+@:},
+@:models: [
+    foreach (var property in Model.ModelMetadata.Properties)
+    {
+
+        if (property.Scaffold)
+        {
+            if (!PropertiesExcept.Contains((string)@property.PropertyName))
+            {
+            var esRequido = property.TypeName.Contains("System.Nullable");
+            if (property.IsForeignKey)
+            {
+            @:{
+            @:id: '@property.PropertyName',
+            @:type: stores.types.select,
+            if(!esRequido)
+            {
+            @:requiredSave: () => true,
+            @:messageEmpty: 'El @property.PropertyName es requerido',
+            }
+            @:},
+            }
+            else
+            {
+            @:{
+            @:id: '@property.PropertyName',
+            if(!esRequido)
+            {
+            @:requiredSave: () => true,
+            @:messageEmpty: 'El @property.PropertyName es requerido',
+            }
+            @:},
+            }
+
+
+            }
+
+            }
+            }
+            @:]
+            @:});
+            @:*@@
+            }
+            @functions
+            {
+            string GetPrimaryKeyName()
+            {
+                return (Model.ModelMetadata.PrimaryKeys != null && Model.ModelMetadata.PrimaryKeys.Length == 1)
+                ? Model.ModelMetadata.PrimaryKeys[0].PropertyName
+                : null;
+            }
+
+            string GetValueExpression(IPropertyMetadata property)
+            {
+                return property.PropertyName;
+            }
+
+            string GetValueExpression(INavigationMetadata navigation)
+            {
+                return navigation.AssociationPropertyName;
+            }
+            bool IsOfNullableType<T>(T o)
+            {
+                var type = typeof(T);
+                return Nullable.GetUnderlyingType(type) != null;
+            }
+            string GetPostfijo(string s)
+            {
+                string[] vocales = { "a", "e", "i", "o", "u" };
+
+                if (vocales.Contains(s.Last().ToString()))
+                    return $"{s}s";
+                else if (s.Last().ToString() == "s")
+                    return $"{s}";
+                else
+                    return $"{s}es";
+
+
+            }
+            }

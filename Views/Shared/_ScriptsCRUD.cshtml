@@ -1,0 +1,22 @@
+
+<environment include="Development">
+    <!-- plugins -->
+    <script src="~/lib/selectize/js/selectize.js" asp-append-version="true"></script>
+    <script src="~/lib/loading/js/jquery.loading.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-editable/js/bootstrap-editable.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-datepicker/datepicker.js" asp-append-version="true"></script>
+    <!-- librerias para los datos -->
+    <script src="~/lib/eureka/js/local.store.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/js/extentions.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/js/common.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/js/ajax.config.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/js/entity.config.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/js/validations.js" asp-append-version="true"></script>
+    <!-- stores -->
+    <script src="~/lib/eureka/js/local.store.js" asp-append-version="true"></script>
+</environment>
+<environment exclude="Development">
+    @*<script src="~/lib/selectize/js/selectize.min.js" asp-append-version="true"></script>
+    <script src="~/lib/loading/js/jquery.loading.min.js" asp-append-version="true"></script>
+    <script src="~/lib/eureka/eureka.min.js" asp-append-version="true"></script>*@
+</environment>

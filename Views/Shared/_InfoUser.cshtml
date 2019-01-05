@@ -1,0 +1,12 @@
+@using Eureka.Extensions;
+@if (Context.User.Identity.IsAuthenticated)
+{
+ var user = this.User.GetServiceUser();
+ <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
+    <span class="pull-right dropdown-toggle">
+        <i class="dropdown-caret"></i>
+    </span>
+    <p class="mnp-name">@user.Username</p>
+    <span class="mnp-desc">@user.Correo</span>
+</a>
+}

@@ -1,0 +1,52 @@
+[
+    {
+        "outputFileName": "wwwroot/lib/selectize/css/selectize.min.css",
+        "inputFiles": [
+          "wwwroot/lib/selectize/css/selectize.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/lib/eureka/css/common.min.css",
+        "inputFiles": [
+          "wwwroot/lib/eureka/css/common.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/lib/selectize/js/selectize.min.js",
+        "inputFiles": [
+            "wwwroot/lib/selectize/js/selectize.js"
+        ],
+        "minify": {
+          "enabled": true,
+          "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/lib/eureka/js/eureka.min.js",
+        "inputFiles": [
+            "wwwroot/lib/eureka/js/local.store.js",
+            "wwwroot/lib/eureka/js/extentions.js",
+            "wwwroot/lib/eureka/js/common.js",
+            "wwwroot/lib/eureka/js/ajax.config.js",
+            "wwwroot/lib/eureka/js/model.config.js",
+            "wwwroot/lib/eureka/js/validations.js"
+        ],
+        "minify": {
+          "enabled": true,
+          "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/models/inventario.min.js",
+        "inputFiles": [
+            "wwwroot/js/models/inventario.model.js"
+        ],
+        "minify": {
+          "enabled": true,
+          "renameLocals": true
+        },
+        "sourceMap": false
+    }
+]

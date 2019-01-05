@@ -1,0 +1,57 @@
+﻿@model string;
+<script>
+
+    $('.eu-selectize').selectize({
+        selectOnTab: true,
+        onChange: function (value) {
+            $('#' + this.$input[0].id + '-selectized').parent().removeClass('isEmpty');
+            $('#' + this.$input[0].id).parent().find('label.error').remove();
+            if (validate.validateField(value)) {
+
+                var model = findModel(this.$input[0].id);
+                model.onChange(value, this.$input[0].innerText);
+
+            }
+        } 
+    });
+
+
+
+    $('.eu-editable').editable({
+        emptytext: 'Ingresar dato'
+    });
+
+    $('#FechaNacimiento').datepicker({
+         //   language: 'es',
+            autoclose: true
+    });
+
+    $('.eu-editable').on("shown", function (e, editable) {
+        editable.input.postrender = function () {
+            editable.input.$input.select();
+        };
+    });
+
+    $('.eu-editable').on('save', function () {
+        var model = findModel(this.id);
+        validate.model(model);
+    });
+
+    $("#btnGuardar").click(function( ) {
+        var entity = getEntity({ name: '@Model', action: 'requiredSave' });
+        if(entity.isValid){           
+            showLoading();
+            entity.save();
+        }
+    });
+
+    $('input.validate').change(function (e) {
+        var model = findModel(this.id);
+        validate.model(model);
+    });
+
+    $(document).ready(function(){
+        createEntities(_entitiesList);
+    });
+    
+</script>

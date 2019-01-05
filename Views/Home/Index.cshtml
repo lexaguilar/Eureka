@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section Styles
+{
+    <environment include="Development">
+        <link rel="stylesheet" type="text/css" href="~/lib/dx/css/dx.common.css" />
+        <link rel="dx-theme" data-theme="generic.light" href="~/lib/dx/css/dx.light.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" type="text/css" href="~/lib/dx/css/dx.common.css" />
+        <link rel="dx-theme" data-theme="generic.light" href="~/lib/dx/css/dx.light.css" />
+    </environment>
+}
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <ul class="pager pager-rounded">
+                <li><a class="btn btn-mint btn-rounded" href="#"><i class="demo-pli-add icon-lg icon-fw"></i> Nuevo cliente</a></li>
+            </ul>
+        </div>
+        <h3 class="panel-title">Clientes</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="dx-viewport">
+            <div class="demo-container">
+                <div id="dxGridCliente"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <environment include="Development">
+        <script src="~/lib/dx/js/cldr.min.js"></script>
+        <script src="~/lib/dx/js/cldr.min.js"></script>
+        <script src="~/lib/dx/js/event.min.js"></script>
+        <script src="~/lib/dx/js/supplemental.min.js"></script>
+        <script src="~/lib/dx/js/unresolved.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/globalize.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/message.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/number.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/currency.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/date.min.js"></script>
+        <script src="~/lib/dx/js/jszip.min.js"></script>
+        <script src="~/lib/dx/js/dx.all.js" asp-append-version="true"></script>   
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/dx/js/cldr.min.js"></script>
+        <script src="~/lib/dx/js/cldr.min.js"></script>
+        <script src="~/lib/dx/js/event.min.js"></script>
+        <script src="~/lib/dx/js/supplemental.min.js"></script>
+        <script src="~/lib/dx/js/unresolved.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/globalize.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/message.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/number.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/currency.min.js"></script>
+        <script type="text/javascript" src="~/lib/dx/js/date.min.js"></script>
+        <script src="~/lib/dx/js/jszip.min.js"></script>
+        <script src="~/lib/dx/js/dx.all.js" asp-append-version="true"></script>   
+    </environment>
+
+
+    <script>
+        var cliente = [
+            {
+                Identificacion : '001-120687-0019F',
+                Nombre : 'Alejandro Antonio Aguilar Escobar',
+                Correo: 'alejandro.aguilar.eurekani.com'
+            },
+            {
+                Identificacion : '001-120687-0019F',
+                Nombre : 'Alejandro Antonio Aguilar Escobar',
+                Correo: 'alejandro.aguilar.eurekani.com'
+            }
+        ]
+        
+        var sourceCliente = new DevExpress.data.DataSource({
+            store: {     
+                type: 'array',               
+                data: cliente,
+                key: 'Identificacion'        
+            }
+        });
+
+        $('#dxGridCliente').dxDataGrid({
+            dataSource: sourceCliente,                        
+            columnsAutoWidth: true,     
+            allowColumnResizing: true,
+            headerFilter: {
+                visible: true
+            },
+            filterRow: {
+                visible: true,
+                applyFilter: "auto"
+            },          
+            columns: [ "Identificacion","Nombre","Apellido","Telefono","Correo","Direccion","tipocliente"],
+            summary: {
+                totalItems: [ {
+                    column: "Identificacion",
+                    summaryType: "count",
+                    customizeText: function(data) {
+                        return  data.value +' clientes';
+                    }
+                }]
+            },            
+        }).dxDataGrid("instance");
+    </script>
+}
