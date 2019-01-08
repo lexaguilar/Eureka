@@ -60,7 +60,7 @@ namespace @Model.ControllerNamespace
         relatedProperties.Add(nav.AssociationPropertyName, nav);
 
     }
-   
+
 
 
     var inlineIncludes = "";
@@ -85,7 +85,7 @@ namespace @Model.ControllerNamespace
 
     // GET: @routePrefix
     @{
-        @:public async Task<IActionResult>Index()
+        @:public IActionResult Index()
             @:{
             @:return View();
     }
@@ -95,16 +95,36 @@ namespace @Model.ControllerNamespace
         @:public async Task<IActionResult>Listar()
             @:{
             var includeExpressions = "";
-            includeExpressions = String.Join("", relatedProperties
-                .Values
-                .Select(property => String.Format(".Include({0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
-            if (!String.IsNullOrEmpty(includeExpressions))
-            {
+        includeExpressions = String.Join("", relatedProperties
+            .Values
+            .Select(property => String.Format(".Include{0} => {0}.{1})", lambdaVar, property.AssociationPropertyName)));
+        if (!String.IsNullOrEmpty(includeExpressions))
+        {
                 @:var @entitySetVar = _context.@entitySetName@includeExpressions;
-                @:return Json(await @(entitySetVar).ToListAsync(), config);
-            }
-            else
+                @: var result = await eurekaContext.Select(x => new {
+                var n = 1;
+            foreach (var m in modelProperties)
             {
+
+                if (n == modelProperties.Count)
+                {
+                            @:x.@m
+                        }
+                else
+                {
+                            @:x.@m,
+                        }
+
+                n++;
+
+
+            }
+
+                @: }).ToListAsync();
+                @:return Json(result, config);
+            }
+        else
+        {
                 @:return Json(await _context.@(entitySetName).ToListAsync(), config);
             }
     }        }
@@ -134,11 +154,10 @@ namespace @Model.ControllerNamespace
             foreach (var property in relatedProperties.Values)
             {
                 var ex = property.ForeignKeyPropertyNames[0];
+                @:@property.EntitySetName = x.UmNavigation.Descripcion,
+                
+                @:ViewData["@(property.ForeignKeyPropertyNames[0])"] = new SelectList(_context.@property.EntitySetName, "@property.PrimaryKeyNames[0]", "@property.DisplayPropertyName");
 
-                if (!PropertiesExcept.Contains((string)ex))
-                {
-                    @:ViewData["@(property.ForeignKeyPropertyNames[0])"] = new SelectList(_context.@property.EntitySetName, "@property.PrimaryKeyNames[0]", "@property.DisplayPropertyName");
-                }
             }
         }            return View();
         }
@@ -166,6 +185,10 @@ namespace @Model.ControllerNamespace
             }
             if (ModelState.IsValid)
             {
+                var result = @(Model.ModelVariable).ValidateForCreate(_context);
+
+                if (!result.successed)
+                    return BadRequest(result); 
             @{
                 if (!string.IsNullOrEmpty(primaryKeyType) && IsGuid(primaryKeyType))
                 {
@@ -174,10 +197,10 @@ namespace @Model.ControllerNamespace
 
                 @:_context.Add(@Model.ModelVariable);
                 @:await _context.SaveChangesAsync();
-            }                return Json(@Model.ModelVariable);
+            }                return Json(@Model.ModelVariable, config);
             }
            
-            return View(@Model.ModelVariable);
+            return BadRequest(@Model.ModelVariable);
             }
 
             // GET: @routePrefix/Edit/5
@@ -203,7 +226,7 @@ namespace @Model.ControllerNamespace
                         }
                     }
                 }
-                return View(@Model.ModelVariable);
+                return BadRequest(@Model.ModelVariable);
                 }
 
                 // POST: @routePrefix/Edit/5
@@ -230,19 +253,36 @@ namespace @Model.ControllerNamespace
                     {
                     var @(Model.ModelVariable)Old = await _context.@(entitySetName).SingleOrDefaultAsync(m => m.@primaryKeyName == @(Model.ModelVariable).@primaryKeyName);
 
+                    var result = @(Model.ModelVariable).ValidateForEdit(@(Model.ModelVariable)Old, _context);
+
+                    if (!result.successed)
+                        return BadRequest(result);    
+
+                    @(Model.ModelVariable)Old.CopyFrom(@(Model.ModelVariable), x => new { 
                     @{
+                        var i = 1;
                         foreach (var m in modelProperties)
                         {
                             if (!PropertiesExceptEdit.Contains(m))
                             {
                                 if (m != primaryKeyName)
                                 {
-                                @:@(Model.ModelVariable)Old.@m = @(Model.ModelVariable).@m;
+                                    if (i == modelProperties.Count)
+                                    {
+                                        @:x.@m
+                                    }
+                                    else
+                                    {
+                                        @:x.@m,
+                                    }
 
+                                    i++;
                                 }
                             }
                         }
                     }
+                    });
+                   
                     await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
@@ -256,7 +296,7 @@ namespace @Model.ControllerNamespace
                     throw;
                     }
                     }
-                    return Json(@Model.ModelVariable);
+                    return Json(@Model.ModelVariable, config);
                     }
                    
                     return BadRequest(@Model.ModelVariable);
@@ -283,7 +323,7 @@ namespace @Model.ControllerNamespace
                         // POST: @routePrefix/delete/5
                         
                         @{ 
-                            if(@primaryKeyName == "Id")
+                            if (@primaryKeyName == "Id")
                             {
                                 @:[HttpPost, ActionName("Delete")]
                                 @:public async Task<IActionResult> Delete(@primaryKeyShortTypeName id)
@@ -305,16 +345,14 @@ namespace @Model.ControllerNamespace
                             await _context.SaveChangesAsync();
                             }
                             catch(DbUpdateException dbex)
-                            {
-                            var sqlException = dbex.GetBaseException() as SqlException;
-
-                            if (sqlException != null)
+                            {                           
+    ss                        if (dbex.GetBaseException() is SqlException sqlException)
                             {
                             var number = sqlException.Number;
 
                             if (number == 547)
                             {
-                            ModelState.AddModelError(string.Empty, $"No se puede eliminiar el @routePrefix por que está en uso");
+                            ModelState.AddModelError(string.Empty, $"No se puede eliminiar el {id} por que está en uso");
                             return View(@Model.ModelVariable);
                             }
                             }

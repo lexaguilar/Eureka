@@ -15,6 +15,7 @@ namespace Eureka.Models
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
+        public string Prefijo { get; set; }
         [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 

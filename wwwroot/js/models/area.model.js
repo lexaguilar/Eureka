@@ -1,9 +1,14 @@
 ﻿_entitiesList.add({
     name: 'area',
+    urlGet: 'areas/obtenerListar',
     urlCreate: `areas/create`,
     urlUpdate: `areas/edit`,
-    render: function () {
-        return `<table><thead><tr><th>#</th><th>Descripcion</th></tr></thead><tbody></tbody></table>`;
+    urlGetPartial: 'areas/obtener/{parametro}',
+    GetPartialKey: function () {
+        return Id.value || null;
+    },
+    load: function (page) {
+        $('#areas').loadData(this, page);
     },
     models: [
         {
@@ -16,13 +21,13 @@
             id: 'Descripcion',
             requiredSave: () => true,
             messageEmpty: 'El campo es requerido',
-            type : stores.types.editable
+            type : stores.types.editable        
         },
         {
             id: 'EstadoId',
             type : stores.types.select,
             requiredSave: () => true,
-            messageEmpty: 'El campo es requerido'
+            messageEmpty: 'El campo es requerido'           
         }
     ]
 });

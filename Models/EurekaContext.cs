@@ -519,6 +519,10 @@ namespace Eureka.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Prefijo)
+                   .IsRequired()
+                   .HasMaxLength(2);
+
                 entity.HasOne(d => d.Estado)
                     .WithMany(p => p.Familias)
                     .HasForeignKey(d => d.EstadoId)
@@ -544,6 +548,8 @@ namespace Eureka.Models
 
             modelBuilder.Entity<Inventario>(entity =>
             {
+                entity.HasIndex(e => e.Codigo);
+
                 entity.HasIndex(e => e.EstadoId)
                     .HasName("IX_Inventario_Estado");
 
@@ -555,7 +561,7 @@ namespace Eureka.Models
                 entity.HasIndex(e => e.PresentacionId)
                     .HasName("IX_Inventario_Presentacion");
 
-                entity.HasIndex(e => e.Um);
+                entity.HasIndex(e => e.UmId);
 
                 entity.Property(e => e.CreadoEl).HasColumnType("datetime");
 
@@ -605,9 +611,9 @@ namespace Eureka.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Presentacion");
 
-                entity.HasOne(d => d.UmNavigation)
+                entity.HasOne(d => d.Um)
                     .WithMany(p => p.Inventarios)
-                    .HasForeignKey(d => d.Um)
+                    .HasForeignKey(d => d.UmId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Um");
             });

@@ -6,7 +6,7 @@ var entityConfig = {
     createModel: function (options) {
 
         var settings = $.extend({
-            routePrefix: 'api/catalogs/',
+            routePrefix: '',
             key: null,
             id: null,
             url: '',
@@ -18,6 +18,7 @@ var entityConfig = {
             messageEmpty: '',
             columnName: null,          
             inputMinLength: null,
+            inputMaxLength: null,
             type: stores.types.input,
             getValue: function () {
                 return getValueByTag[this.type](this.id);//common.js
@@ -72,6 +73,13 @@ var entityConfig = {
                 $('#' + selector).addClass('isEmpty').addWarn(msg || this.messageEmpty);
 
             },
+            showMessageAsError: function (msg) {
+
+                var selector = this.elemt || this.id;
+                $('#' + selector).addClass('isEmpty').addError(msg || this.messageEmpty);
+
+            },
+
         }, options);
 
         settings.columnName = settings.columnName || settings.id;
@@ -185,8 +193,8 @@ var createEntities = entities => {
         } else {
 
             var onSuccessCreate = function (data) {
-                showNotify(`Se guardó correctamente Id: ${data.id}`, 'success', 'Informacion');
-                setHTMLFromEntity({ Id: data.id }, entity.name);
+                showNotify(`Se guardó correctamente Id: ${data.Id}`, 'success', 'Informacion');
+                setHTMLFromEntity({ Id: data.Id }, entity.name);
                 $("#btnGuardar").html('<i class="ion-checkmark ion-14px"></i> Actualizar');
                 stopLoading();
             }
@@ -197,14 +205,27 @@ var createEntities = entities => {
             }
 
             var onSuccessUpdate = function (data) {
-                showNotify(`Se actualizó correctamente Id: ${data.id}`, 'info', 'Informacion');
-                setHTMLFromEntity(data, entity.name);
+                showNotify(`Se actualizó correctamente Id: ${data.Id}`, 'mint', 'Informacion');
+                //setHTMLFromEntity(data, entity.name, ['Id']);
                 stopLoading();
             }
 
             var onFailUpdate = function (jqXHR) {
-                ajax.failResult(jqXHR);
+                if (jqXHR.status == ajax.status.BadRequest) {
+                    if (typeof jqXHR.responseJSON == 'object') {
+                        var model = findModel(jqXHR.responseJSON.item);
+                        model.showMessageAsError('Validar este campo');
+                    }
+                    
+                    ajax.failResult(jqXHR);
+                } else {
+                    ajax.failResult(jqXHR);
+                }
                 stopLoading();
+            }
+
+            var load = function (parametro) {
+                $('#' + parametro).loadData()
             }
 
             _entities.add({

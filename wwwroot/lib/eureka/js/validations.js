@@ -11,7 +11,8 @@ var validate = {
     validateLength: value => {
         var f = {
             iquals: _length => value.length == _length,
-            between: (min, max) => value.length >= min && value.length <= max
+            between: (min, max) => value.length >= min && value.length <= max,
+            greaterThan: _length => value.length > _length
         }
         return f;
     },
@@ -37,6 +38,24 @@ var validate = {
                     model.showMessage(`Ingrese ${model.inputMinLength} dígitos`);
                 else
                     model.showMessage(`Ingrese ${model.inputMinLength} dígitos mínimo`);
+
+                propertyIsOk = false;
+
+            }
+        }
+
+        if (model.inputMaxLength) {
+            var hasMask = $('#' + model.id).data('mask');
+            var length = 0;
+
+            if (hasMask)
+                length = $('#' + model.id).cleanVal().length;
+            else
+                length = String(value).length;
+
+            if (model.inputMaxLength < length) {
+               
+                model.showMessage(`Solo se permite ${model.inputMaxLength} caracteres máximo`);
 
                 propertyIsOk = false;
 

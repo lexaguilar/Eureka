@@ -19,9 +19,11 @@ namespace Eureka.Models
 
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Codigo { get; set; }
+        public int CodigoControl { get; set; }
         public string Descripcion { get; set; }
         [Display(Name = "Unidad Medida")]
-        public int Um { get; set; }
+        public int UmId { get; set; }
         [Display(Name ="Familia")]
         public int FamiliaId { get; set; }
         [Display(Name = "Presentacion")]
@@ -38,7 +40,7 @@ namespace Eureka.Models
         public Familia Familia { get; set; }
         public Perfil ModificadoPorNavigation { get; set; }
         public Presentacion Presentacion { get; set; }
-        public Um UmNavigation { get; set; }
+        public Um Um { get; set; }
         public ICollection<CompraDetalle> CompraDetalles { get; set; }
         public ICollection<EntradaDetalle> EntradaDetalles { get; set; }
         public ICollection<Existencia> Existencias { get; set; }

@@ -136,9 +136,12 @@
 @:_entitiesList.add({
 @:name: '@Model.ViewDataTypeShortName.ToLower()',
 @:urlGet: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListar',
-@:urlGetPartial: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListarCompletar',
 @:urlCreate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/create`,
 @:urlUpdate:  `@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/edit`,
+@:urlGetPartial: '@GetPostfijo(Model.ViewDataTypeShortName.ToLower())/obtenerListarCompletar',
+@:GetPartialKey: function() {
+    @:return Id.value || null;
+@:},
 @:load: function (page) {
 @:        $('#@GetPostfijo(Model.ViewDataTypeShortName.ToLower())').loadData(this, page);
 @:},

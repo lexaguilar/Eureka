@@ -1,15 +1,15 @@
 ﻿_entitiesList.add({
     name: 'perfil',
     urlGet: `perfiles/obtenerListar`, 
-    urlGetPartial: `perfiles/ObtenerListarPorArea`,
+    urlCreate: `perfiles/create`,
+    urlUpdate: `perfiles/edit`, 
+    urlGetPartial: 'Perfiles/obtener-por/{parametro}',
     GetPartialKey: function () {
         return Id.value||null;
     },
-    urlCreate: `perfiles/create`,    
-    urlUpdate: `perfiles/update`, 
-    load: function (page) {
+    load: function (page, forEntity) {
         
-        $('#perfiles').loadData(this, page);
+        $('#perfiles').loadData(this, page, forEntity);
 
     },
     models: [

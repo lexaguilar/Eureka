@@ -248,6 +248,9 @@ var setValueByTag = {
     td: function (id, value) {
         $elemt('#' + id).setValue(value);
     },
+    editable: function (id, value) {
+        return $('#' + id).editable('setValue', value, true);
+    }
 }
 
 var clearValueByTag = {
@@ -278,6 +281,9 @@ var clearValueByTag = {
     td: function (id) {
         $elemt('#' + id).setValue(0);
     },
+    editable: function (id) {
+        return $('#' + id).editable('setValue', '', true);
+    }
 }
 
 var getDatePart = (date, part) => {

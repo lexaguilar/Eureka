@@ -26,19 +26,24 @@ var ajax = {
         if (jqXHR.status == ajax.status.Unauthorized)
             ajax.redirectToLogin();
         if (jqXHR.status == ajax.status.IServerError)
-            ajax.showMessage({ responseJSON: 'Error interno de la aplicación' });
+            ajax.showMessage({ responseJSON: 'Error interno de la aplicación' }, 'danger');
         else              
-            ajax.showMessage(jqXHR);
+            ajax.showMessage(jqXHR,'danger');
         
     },
     redirectToLogin: () => { window.location.href = pathBase + 'cuenta/login' },
-    showMessage: jqXHR => $.notify(jqXHR.responseJSON, { mouse_over: 'pause' }),
-    showMessage: jqXHR => $.niftyNoty({
-        type: 'success',
-        container: 'floating',
-        title: 'Error al guardar',
-        message: jqXHR.responseJSON,
-        closeBtn: true,
-        timer: 2000
-    })
+    //showMessage: jqXHR => $.notify(jqXHR.responseJSON, { mouse_over: 'pause' }),
+    showMessage: (jqXHR, type) => {
+        var msg = typeof jqXHR.responseJSON == 'object' ? jqXHR.responseJSON.mensaje : jqXHR.responseJSON
+        
+        $.niftyNoty({
+            type: type || 'success',
+            container: 'floating',
+            title: 'Error al guardar',
+            message: msg,
+            closeBtn: true,
+            timer: 3500
+        })
+    } 
+
 };

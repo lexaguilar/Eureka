@@ -46,7 +46,7 @@
                     return resolve(result);
                 };
 
-                var url = findUrl(model);
+                var url = options.url || findUrl(model);
 
                 if (url.length > 0)
                     ajax.get(model.routePrefix+ url, null, callback, options.failCallback);
@@ -76,7 +76,7 @@
 
     }
 
-    $.fn.loadData = function (entity, pag) {
+    $.fn.loadData = function (entity, pag, forEntity) {
         
         return new Promise(resolve => {
             this.each(function () {
@@ -145,8 +145,8 @@
                     }
                    
                 }
-
-                ajax.get(entity.urlGetPartial, data, callback);
+                var url = buildUrlWithValues(entity.urlGetPartial, [forEntity]);
+                ajax.get(url, data, callback);
             });
         });
     }
@@ -296,7 +296,11 @@
         return this.each(function () {
             $(this).parent().find('label.warn').remove();
             $(this).parent().find('label.error').remove();
-            $(`<label for="${this.id}" class="warn" style="display:none">${msg}</label>`).insertBefore(this);
+            let css = 'right : -3px;';
+            if (this.tagName == 'A') {
+                css = `left : 3px;`;
+            }
+            $(`<label for="${this.id}" class="warn" style="${css}display:none">${msg}</label>`).insertBefore(this);
 
             setTimeout(() => {
                 $("label.warn").fadeIn();

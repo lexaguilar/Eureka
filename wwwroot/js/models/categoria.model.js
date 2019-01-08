@@ -1,9 +1,12 @@
 ﻿_entitiesList.add({
     name: 'categoria',
     urlGet: 'categorias/obtenerListar',
-    urlGetPartial: 'categorias/obtenerListarCompletar',
     urlCreate: `categorias/create`,
     urlUpdate: `categorias/edit`,
+    urlGetPartial: 'categorias/obtenerListarCompletar',
+    GetPartialKey: function () {
+        return Id.value || null;
+    },
     load: function (page) {
         $('#categorias').loadData(this, page);
     },

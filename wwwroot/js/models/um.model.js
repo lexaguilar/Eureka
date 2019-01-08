@@ -1,9 +1,12 @@
 ﻿_entitiesList.add({
     name: 'um',
     urlGet: 'umes/obtenerListar',
-    urlGetPartial: 'umes/obtenerListarCompletar',
     urlCreate: `umes/create`,
     urlUpdate: `umes/edit`,
+    urlGetPartial: 'umes/obtenerListarCompletar',
+    GetPartialKey: function () {
+        return Id.value || null;
+    },
     load: function (page) {
         $('#umes').loadData(this, page);
     },

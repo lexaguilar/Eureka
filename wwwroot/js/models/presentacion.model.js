@@ -1,9 +1,12 @@
 ﻿_entitiesList.add({
     name: 'presentacion',
     urlGet: 'presentaciones/obtenerListar',
-    urlGetPartial: 'presentaciones/obtenerListarCompletar',
     urlCreate: `presentaciones/create`,
     urlUpdate: `presentaciones/edit`,
+    urlGetPartial: 'presentaciones/obtenerListarCompletar',
+    GetPartialKey: function () {
+        return Id.value || null;
+    },
     load: function (page) {
         $('#presentaciones').loadData(this, page);
     },

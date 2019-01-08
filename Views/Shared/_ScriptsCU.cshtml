@@ -1,7 +1,7 @@
 ﻿@model string;
 <script>
 
-    $('.eu-selectize').selectize({
+    var $selectizies = $('.eu-selectize').selectize({
         selectOnTab: true,
         onChange: function (value) {
             $('#' + this.$input[0].id + '-selectized').parent().removeClass('isEmpty');

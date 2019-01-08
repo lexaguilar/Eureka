@@ -55,7 +55,7 @@ namespace Eureka.Controllers
                     return View("Login",model);
                 }
 
-                if (result.EstadoId == (int)AdEstados.Desactivado)
+                if (result.EstadoId == (int)Estados.Desactivado)
                 {
                     ModelState.AddModelError(string.Empty, "Usuario bloqueado.");
                     return View("Login", model);
