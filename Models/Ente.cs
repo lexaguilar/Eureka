@@ -1,29 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("Ente")]
     public partial class Ente
     {
         public Ente()
         {
-            Compras = new HashSet<Compra>();
-            Entradas = new HashSet<Entrada>();
-            Salidas = new HashSet<Salida>();
+            Compra = new HashSet<Compra>();
+            Entrada = new HashSet<Entrada>();
+            Salida = new HashSet<Salida>();
         }
 
         public int Id { get; set; }
-        [Display(Name = "Tipo")]
         public int TipoEnteId { get; set; }
-        [Display(Name = "Tipo Identificacion")]
         public int TipoIdentificacionId { get; set; }
         public string Identificacion { get; set; }
         public DateTime? FechaNacimiento { get; set; }
         public string NombreCompleto { get; set; }
-        [Display(Name = "Sexo")]
         public int? SexoId { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
@@ -47,10 +41,8 @@ namespace Eureka.Models
         public Sexo Sexo { get; set; }
         public TipoEnte TipoEnte { get; set; }
         public TipoIdentificacion TipoIdentificacion { get; set; }
-
-        public ICollection<Compra> Compras { get; set; }
-
-        public ICollection<Entrada> Entradas { get; set; }
-        public ICollection<Salida> Salidas { get; set; }
+        public ICollection<Compra> Compra { get; set; }
+        public ICollection<Entrada> Entrada { get; set; }
+        public ICollection<Salida> Salida { get; set; }
     }
 }

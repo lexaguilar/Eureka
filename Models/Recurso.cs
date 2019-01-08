@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("Recurso")]
     public partial class Recurso
     {
         public Recurso()
@@ -15,7 +12,6 @@ namespace Eureka.Models
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Estado Estado { get; set; }

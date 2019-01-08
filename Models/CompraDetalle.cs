@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("CompraDetalle")]
     public partial class CompraDetalle
     {
         public int Id { get; set; }
@@ -23,6 +21,6 @@ namespace Eureka.Models
         public string NoFactura { get; set; }
 
         public Compra Compra { get; set; }
-        public Inventario Inventarios { get; set; }
+        public Inventario Inventario { get; set; }
     }
 }

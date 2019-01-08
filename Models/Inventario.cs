@@ -1,39 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("Inventario")]
     public partial class Inventario
     {
         public Inventario()
         {
-            CompraDetalles = new HashSet<CompraDetalle>();
-            EntradaDetalles = new HashSet<EntradaDetalle>();
-            Existencias = new HashSet<Existencia>();
-            SalidaDetalles = new HashSet<SalidaDetalle>();
-            ServiciosEstandares = new HashSet<ServicioEstandar>();
+            CompraDetalle = new HashSet<CompraDetalle>();
+            EntradaDetalle = new HashSet<EntradaDetalle>();
+            Existencia = new HashSet<Existencia>();
+            SalidaDetalle = new HashSet<SalidaDetalle>();
+            ServicioEstandar = new HashSet<ServicioEstandar>();
         }
 
         public int Id { get; set; }
-        public string Nombre { get; set; }
         public string Codigo { get; set; }
-        public int CodigoControl { get; set; }
+        public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        [Display(Name = "Unidad Medida")]
         public int UmId { get; set; }
-        [Display(Name ="Familia")]
         public int FamiliaId { get; set; }
-        [Display(Name = "Presentacion")]
         public int PresentacionId { get; set; }
         public string CreadoPor { get; set; }
         public DateTime CreadoEl { get; set; }
         public string ModificadoPor { get; set; }
         public DateTime? ModificadoEl { get; set; }
-        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
+        public int CodigoControl { get; set; }
 
         public Perfil CreadoPorNavigation { get; set; }
         public Estado Estado { get; set; }
@@ -41,10 +34,10 @@ namespace Eureka.Models
         public Perfil ModificadoPorNavigation { get; set; }
         public Presentacion Presentacion { get; set; }
         public Um Um { get; set; }
-        public ICollection<CompraDetalle> CompraDetalles { get; set; }
-        public ICollection<EntradaDetalle> EntradaDetalles { get; set; }
-        public ICollection<Existencia> Existencias { get; set; }
-        public ICollection<SalidaDetalle> SalidaDetalles { get; set; }
-        public ICollection<ServicioEstandar> ServiciosEstandares { get; set; }
+        public ICollection<CompraDetalle> CompraDetalle { get; set; }
+        public ICollection<EntradaDetalle> EntradaDetalle { get; set; }
+        public ICollection<Existencia> Existencia { get; set; }
+        public ICollection<SalidaDetalle> SalidaDetalle { get; set; }
+        public ICollection<ServicioEstandar> ServicioEstandar { get; set; }
     }
 }

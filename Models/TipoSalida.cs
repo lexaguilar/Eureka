@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("TipoSalida")]
     public partial class TipoSalida
     {
         public TipoSalida()
         {
-            Salidas = new HashSet<Salida>();
+            Salida = new HashSet<Salida>();
         }
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Estado Estado { get; set; }
-        public ICollection<Salida> Salidas { get; set; }
+        public ICollection<Salida> Salida { get; set; }
     }
 }

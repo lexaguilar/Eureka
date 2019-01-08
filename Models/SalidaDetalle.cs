@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("SalidaDetalle")]
     public partial class SalidaDetalle
     {
         public int Id { get; set; }

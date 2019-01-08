@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("FormaPago")]
     public partial class FormaPago
     {
         public FormaPago()
         {
-            Compras = new HashSet<Compra>();
-            Entradas = new HashSet<Entrada>();
-            Salidas = new HashSet<Salida>();
+            Compra = new HashSet<Compra>();
+            Entrada = new HashSet<Entrada>();
+            Salida = new HashSet<Salida>();
         }
 
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        [Display(Name = "Estado")]
         public int EstadoId { get; set; }
 
         public Estado Estado { get; set; }
-        public ICollection<Compra> Compras { get; set; }
-        public ICollection<Entrada> Entradas { get; set; }
-        public ICollection<Salida> Salidas { get; set; }
+        public ICollection<Compra> Compra { get; set; }
+        public ICollection<Entrada> Entrada { get; set; }
+        public ICollection<Salida> Salida { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Eureka.Models.ViewModels;
+﻿using Eureka.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 namespace Eureka.Models
 {
     public partial class Perfil : BusinessLogicInitializer<Perfil>
-
     {
         internal override BadRequestViewModel ValidateForCreate(EurekaContext _context)
         {
@@ -21,7 +19,7 @@ namespace Eureka.Models
             {
                 badRequestViewModel.successed = false;
                 badRequestViewModel.item = "Descripcion";
-                badRequestViewModel.mensaje = $"Ya existe un perfil con el alias {Username}";
+                badRequestViewModel.mensaje = $"Ya existe una area con la descripcion {Username}";
             }
 
             return badRequestViewModel;

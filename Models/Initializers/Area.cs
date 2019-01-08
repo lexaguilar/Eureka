@@ -1,11 +1,13 @@
 ﻿using Eureka.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eureka.Models
 {
+    [Table("Area")]
     public partial class Area : BusinessLogicInitializer<Area>
     {
         internal override BadRequestViewModel ValidateForCreate(EurekaContext _context)

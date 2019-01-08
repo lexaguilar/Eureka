@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
 namespace Eureka.Models
 {
     public partial class EurekaContext : DbContext
@@ -51,7 +52,7 @@ namespace Eureka.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LEX-PC\\PCLEX;Database=Eureka;User Id=sa;Password=123");
+                optionsBuilder.UseSqlServer("Server=LEX-PC\\PCLEX;Database=Eureka;User Id=sa;Password=123;");
             }
         }
 
@@ -65,7 +66,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Areas)
+                    .WithMany(p => p.Area)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Estado_Area");
@@ -129,43 +130,43 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Area)
-                    .WithMany(p => p.Compras)
+                    .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Compra_Area");
 
                 entity.HasOne(d => d.CompraEstado)
-                    .WithMany(p => p.Compras)
+                    .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.CompraEstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Compra_CompraEstado");
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.ComprasCreadas)
+                    .WithMany(p => p.CompraCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Compra_PerfilCreado");
 
                 entity.HasOne(d => d.Ente)
-                    .WithMany(p => p.Compras)
+                    .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.EnteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Compra_Ente");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Compras)
+                    .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Estado_Compra");
 
                 entity.HasOne(d => d.FormaPago)
-                    .WithMany(p => p.Compras)
+                    .WithMany(p => p.Compra)
                     .HasForeignKey(d => d.FormaPagoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Compra_FormaPago");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.ComprasModificadas)
+                    .WithMany(p => p.CompraModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Compra_PerfilModificado");
             });
@@ -203,13 +204,13 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Compra)
-                    .WithMany(p => p.CompraDetalles)
+                    .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.CompraId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CompraDetalle_Compra");
 
-                entity.HasOne(d => d.Inventarios)
-                    .WithMany(p => p.CompraDetalles)
+                entity.HasOne(d => d.Inventario)
+                    .WithMany(p => p.CompraDetalle)
                     .HasForeignKey(d => d.InventarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CompraDetalle_Inventario");
@@ -288,45 +289,44 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Categoria)
-                    .WithMany(p => p.Entes)
+                    .WithMany(p => p.Ente)
                     .HasForeignKey(d => d.CategoriaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ente_Categoria");
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.EntesCreados)
+                    .WithMany(p => p.EnteCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ente_PerfilCreado");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Entes)
+                    .WithMany(p => p.Ente)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ente_Estado");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.EntesModificados)
+                    .WithMany(p => p.EnteModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Ente_PerfilModificado");
 
                 entity.HasOne(d => d.Sexo)
-                    .WithMany(p => p.Entes)
+                    .WithMany(p => p.Ente)
                     .HasForeignKey(d => d.SexoId)
                     .HasConstraintName("FK_Ente_Sexo");
 
                 entity.HasOne(d => d.TipoEnte)
-                    .WithMany(p => p.Entes)
+                    .WithMany(p => p.Ente)
                     .HasForeignKey(d => d.TipoEnteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ente_TipoEnte");
 
                 entity.HasOne(d => d.TipoIdentificacion)
-                    .WithMany(p => p.Entes)
+                    .WithMany(p => p.Ente)
                     .HasForeignKey(d => d.TipoIdentificacionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ente_TipoIdentificacion");          
-                
+                    .HasConstraintName("FK_Ente_TipoIdentificacion");
             });
 
             modelBuilder.Entity<Entrada>(entity =>
@@ -379,48 +379,48 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Area)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_Area");
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.EntradasCreadas)
+                    .WithMany(p => p.EntradaCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_PerfilCreado");
 
                 entity.HasOne(d => d.Ente)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.EnteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_Ente");
 
                 entity.HasOne(d => d.EntradaEstado)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.EntradaEstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_EntradaEstado");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_Estado");
 
                 entity.HasOne(d => d.FormaPago)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.FormaPagoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_FormaPago");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.EntradasModificadas)
+                    .WithMany(p => p.EntradaModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Entrada_PerfilModificado");
 
                 entity.HasOne(d => d.TipoEntrada)
-                    .WithMany(p => p.Entradas)
+                    .WithMany(p => p.Entrada)
                     .HasForeignKey(d => d.TipoEntradaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Entrada_TipoEntrada");
@@ -455,13 +455,13 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Entrada)
-                    .WithMany(p => p.EntradaDetalles)
+                    .WithMany(p => p.EntradaDetalle)
                     .HasForeignKey(d => d.EntradaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EntradaDetalle_Entrada");
 
-                entity.HasOne(d => d.Inventarios)
-                    .WithMany(p => p.EntradaDetalles)
+                entity.HasOne(d => d.Inventario)
+                    .WithMany(p => p.EntradaDetalle)
                     .HasForeignKey(d => d.InventarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EntradaDetalle_Inventario");
@@ -500,13 +500,13 @@ namespace Eureka.Models
                     .HasMaxLength(500);
 
                 entity.HasOne(d => d.Area)
-                    .WithMany(p => p.Existencias)
+                    .WithMany(p => p.Existencia)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Existencia_Area");
 
                 entity.HasOne(d => d.Inventario)
-                    .WithMany(p => p.Existencias)
+                    .WithMany(p => p.Existencia)
                     .HasForeignKey(d => d.InventarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Existencia_Inventario");
@@ -520,11 +520,11 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Prefijo)
-                   .IsRequired()
-                   .HasMaxLength(2);
+                    .IsRequired()
+                    .HasMaxLength(2);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Familias)
+                    .WithMany(p => p.Familia)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Familia_Estado");
@@ -540,7 +540,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.FormaPagos)
+                    .WithMany(p => p.FormaPago)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FormaPago_Estado");
@@ -561,7 +561,12 @@ namespace Eureka.Models
                 entity.HasIndex(e => e.PresentacionId)
                     .HasName("IX_Inventario_Presentacion");
 
-                entity.HasIndex(e => e.UmId);
+                entity.HasIndex(e => e.UmId)
+                    .HasName("IX_Inventario_Um");
+
+                entity.Property(e => e.Codigo)
+                    .IsRequired()
+                    .HasMaxLength(10);
 
                 entity.Property(e => e.CreadoEl).HasColumnType("datetime");
 
@@ -583,36 +588,36 @@ namespace Eureka.Models
                     .HasMaxLength(150);
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.InventariosCreados)
+                    .WithMany(p => p.InventarioCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_PerfilCreado");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Inventarios)
+                    .WithMany(p => p.Inventario)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Estado");
 
                 entity.HasOne(d => d.Familia)
-                    .WithMany(p => p.Inventarios)
+                    .WithMany(p => p.Inventario)
                     .HasForeignKey(d => d.FamiliaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Familia");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.InventariosModificados)
+                    .WithMany(p => p.InventarioModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Inventario_PerfilModificado");
 
                 entity.HasOne(d => d.Presentacion)
-                    .WithMany(p => p.Inventarios)
+                    .WithMany(p => p.Inventario)
                     .HasForeignKey(d => d.PresentacionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Presentacion");
 
                 entity.HasOne(d => d.Um)
-                    .WithMany(p => p.Inventarios)
+                    .WithMany(p => p.Inventario)
                     .HasForeignKey(d => d.UmId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Inventario_Um");
@@ -662,19 +667,19 @@ namespace Eureka.Models
                     .HasColumnType("datetime");
 
                 entity.HasOne(d => d.Area)
-                    .WithMany(p => p.Perfiles)
+                    .WithMany(p => p.Perfil)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Perfil_Area");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Perfiles)
+                    .WithMany(p => p.Perfil)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Perfil_Estado");
 
                 entity.HasOne(d => d.Rol)
-                    .WithMany(p => p.Perfiles)
+                    .WithMany(p => p.Perfil)
                     .HasForeignKey(d => d.RolId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Perfil_Rol");
@@ -688,7 +693,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Presentaciones)
+                    .WithMany(p => p.Presentacion)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Presentacion_Estado");
@@ -704,7 +709,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Recursos)
+                    .WithMany(p => p.Recurso)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Recurso_Estado");
@@ -718,7 +723,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Roles)
+                    .WithMany(p => p.Rol)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Rol_Estado");
@@ -789,48 +794,48 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Area)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.AreaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_Area");
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.SalidasCreadas)
+                    .WithMany(p => p.SalidaCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_PerfilCreado");
 
                 entity.HasOne(d => d.Ente)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.EnteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_Ente");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_Estado");
 
                 entity.HasOne(d => d.FormaPago)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.FormaPagoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_FormaPago");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.SalidasModificadas)
+                    .WithMany(p => p.SalidaModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Salida_PerfilModificado");
 
                 entity.HasOne(d => d.SalidaEstado)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.SalidaEstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_SalidaEstado");
 
                 entity.HasOne(d => d.TipoSalida)
-                    .WithMany(p => p.Salidas)
+                    .WithMany(p => p.Salida)
                     .HasForeignKey(d => d.TipoSalidaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Salida_TipoSalida");
@@ -865,19 +870,19 @@ namespace Eureka.Models
                 entity.Property(e => e.Total).HasColumnType("numeric(18, 6)");
 
                 entity.HasOne(d => d.Inventario)
-                    .WithMany(p => p.SalidaDetalles)
+                    .WithMany(p => p.SalidaDetalle)
                     .HasForeignKey(d => d.InventarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SalidaDetalle_Inventario");
 
                 entity.HasOne(d => d.Salida)
-                    .WithMany(p => p.SalidaDetalles)
+                    .WithMany(p => p.SalidaDetalle)
                     .HasForeignKey(d => d.SalidaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SalidaDetalle_Salida");
 
                 entity.HasOne(d => d.ServicioEstandar)
-                    .WithMany(p => p.SalidaDetalles)
+                    .WithMany(p => p.SalidaDetalle)
                     .HasForeignKey(d => d.ServicioEstandarId)
                     .HasConstraintName("FK_InvSalidaDetalle_ServServicioEstandar");
             });
@@ -918,19 +923,19 @@ namespace Eureka.Models
                     .HasMaxLength(500);
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.ServiciosCreados)
+                    .WithMany(p => p.ServicioCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Servicio_PerfilCreado");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Servicios)
+                    .WithMany(p => p.Servicio)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Servicio_Estado");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.ServiciosModificados)
+                    .WithMany(p => p.ServicioModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_Servicio_PerfilModificado");
             });
@@ -951,30 +956,30 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.CreadoPorNavigation)
-                    .WithMany(p => p.ServiciosEstandaresCreados)
+                    .WithMany(p => p.ServicioEstandarCreadoPorNavigation)
                     .HasForeignKey(d => d.CreadoPor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServicioEstandar_PerfilCreado");
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.ServiciosEstandares)
+                    .WithMany(p => p.ServicioEstandar)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SServicioEstandar_Estado");
 
                 entity.HasOne(d => d.Inventario)
-                    .WithMany(p => p.ServiciosEstandares)
+                    .WithMany(p => p.ServicioEstandar)
                     .HasForeignKey(d => d.InventarioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServicioEstandar_Inventario");
 
                 entity.HasOne(d => d.ModificadoPorNavigation)
-                    .WithMany(p => p.ServiciosEstandaresModificados)
+                    .WithMany(p => p.ServicioEstandarModificadoPorNavigation)
                     .HasForeignKey(d => d.ModificadoPor)
                     .HasConstraintName("FK_ServicioEstandar_PerfilModificado");
 
                 entity.HasOne(d => d.Servicio)
-                    .WithMany(p => p.ServiciosEstandares)
+                    .WithMany(p => p.ServicioEstandar)
                     .HasForeignKey(d => d.ServicioId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServicioEstandar_Servicio");
@@ -1006,7 +1011,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.TipoEntradas)
+                    .WithMany(p => p.TipoEntrada)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TipoEntrada_Estado");
@@ -1030,7 +1035,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.TipoSalidas)
+                    .WithMany(p => p.TipoSalida)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TipoSalida_Estado");
@@ -1044,7 +1049,7 @@ namespace Eureka.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Ums)
+                    .WithMany(p => p.Um)
                     .HasForeignKey(d => d.EstadoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Um_Estado");

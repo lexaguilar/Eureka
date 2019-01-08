@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eureka.Models
 {
-    [Table("Existencia")]
     public partial class Existencia
     {
-        [Display(Name = "Area")]
         public int AreaId { get; set; }
-        [Display(Name = "Producto")]
         public int InventarioId { get; set; }
         public double Existencias { get; set; }
         public decimal CostoPromedio { get; set; }
