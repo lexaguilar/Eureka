@@ -22,6 +22,14 @@ namespace Eureka.Extensions
             inventario.CodigoControl = maxCode;
             inventario.Codigo = familia.Prefijo + maxCode.ToString().PadLeft(6, '0');
         }
-       
+
+        internal static BadRequestViewModel AsError(this BadRequestViewModel badRequestViewModel, string item, string mensaje)
+        {
+            badRequestViewModel.successed = false;
+            badRequestViewModel.item = item;
+            badRequestViewModel.mensaje = mensaje;
+            return badRequestViewModel;
+        }
+
     }
 }

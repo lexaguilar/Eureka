@@ -5,21 +5,21 @@ using System.Linq;
 
 namespace Eureka.Models
 {
-    [Table("Area")]
-    public partial class Area : BusinessLogicInitializer<Area>
+    [Table("Ente")]
+    public partial class Ente : BusinessLogicInitializer<Ente>
     {
         internal override BadRequestViewModel ValidateForCreate(EurekaContext _context)
         {
             BadRequestViewModel badRequestViewModel = new BadRequestViewModel { successed = true };
 
-            if (_context.Areas.Any(x => x.Descripcion == Descripcion))
-                badRequestViewModel = badRequestViewModel.AsError("Descripcion", $"Ya existe una area con la descripción {Descripcion}");
+            if (_context.Entes.Any(x => x.NombreCompleto == NombreCompleto))
+                badRequestViewModel = badRequestViewModel.AsError("Descripcion", $"Ya existe un ente con el nombre {NombreCompleto}");
 
             return badRequestViewModel;
         }
-        internal override BadRequestViewModel ValidateForEdit(EurekaContext _context, Area area)
+        internal override BadRequestViewModel ValidateForEdit(EurekaContext _context, Ente ente)
         {
-            var badRequestViewModel = area.ValidateForCreate(_context);
+            var badRequestViewModel = ente.ValidateForCreate(_context);
 
             return badRequestViewModel;
         }
