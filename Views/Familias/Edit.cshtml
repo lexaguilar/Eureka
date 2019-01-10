@@ -1,2 +1,82 @@
 ﻿@model Eureka.Models.Familia
 
+@{
+    ViewData["Title"] = "Editar familia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+    {
+    @await Html.PartialAsync("_CssCRUD")
+}
+
+@{
+    string[] info = { "Familias", "editar" };
+}
+@await Html.PartialAsync("_Breadcrumb", info)
+<div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-mint" id="panel-updatable">
+        <div class="panel-heading">
+            <div class="panel-control">
+                <ul class="pager pager-rounded">
+                    <li><a class="btn btn-danger btn-rounded" asp-action="delete" asp-route-id="@Model.Id"><i class="ion-close ion-14px"></i> Eliminar familia </a></li>
+                    <li><a asp-action="details" class="btn btn-info" asp-route-id="@Model.Id"><span class="ion-android-list"></span> Detalles</a></li>
+                </ul>
+            </div>
+            <h3 class="panel-title">Editar familia</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <input type="hidden" value="0" asp-for="Id" />
+                <div class="col-md-12 form-group">
+                    <label asp-for="Id" class="col-md-4 font-16"> :</label>
+                    <div class="col-lg-8">
+                        <a href="#" id="Id" class="eu-editable validate font-16"></a>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label asp-for="Descripcion" class="col-md-4 font-16">Descripcion :</label>
+                    <div class="col-lg-8">
+                        <a href="#" id="Descripcion" class="eu-editable validate font-16"></a>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label asp-for="EstadoId" class="col-md-4 font-16">Estado :</label>
+                    <div class="col-lg-8">
+                        <select asp-for="EstadoId" class="eu-selectize"><option value="">Seleccione</option></select>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label asp-for="Prefijo" class="col-md-4 font-16">Prefijo :</label>
+                    <div class="col-lg-8">
+                        <a href="#" id="Prefijo" class="eu-editable validate font-16"></a>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group demo-nifty-btn">
+                <button id="btnGuardar" type="button" class="btn btn-mint btn-block"><i class="ion-checkmark ion-14px"></i> Actualizar Familia</button>
+            </div>
+            <hr class="new-section-sm">
+            <a class="btn btn-sm btn-default" asp-action="index"><i class="ion-arrow-left-b ion-14px"></i> Regresar al listado</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ScriptsCRUD")
+    @await Html.PartialAsync("_ScriptsCU", "familia")
+    <environment include="Development">
+        <script src="~/js/models/familia.model.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/models/familia.min.js" asp-append-version="true"></script>
+    </environment>
+    <script>
+        $(document).ready(function () {
+            $('#EstadoId').loadCatalog({ url: 'api/catalogs/obtener-estados-for-edit'});
+        });
+    </script>
+}

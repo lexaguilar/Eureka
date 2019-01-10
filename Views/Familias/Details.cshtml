@@ -1,1 +1,90 @@
 ﻿@model Eureka.Models.Familia
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles
+    {
+    @await Html.PartialAsync("_CssDetailsDelete")
+}
+@{
+    string[] info = { "Familias", "detalle" };
+}
+@await Html.PartialAsync("_Breadcrumb", info)
+<div class="col-md-5">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-control">
+                <ul class="pager pager-rounded">
+                    <li><a asp-action="edit" asp-route-id="@Model.Id" class="btn btn-mint btn-rounded"><i class="ion-edit"></i> Editar familia</a></li>
+                    <li><a asp-action="delete" asp-route-id="@Model.Id" class="btn btn-danger btn-rounded"><span class="ion-close"></span> Eliminar familia</a></li>
+                </ul>
+            </div>
+            <h3 class="panel-title">Detalle del familia #@Html.DisplayFor(model => model.Id)</h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Descripcion):</td>
+                    <td>@Html.DisplayFor(model => model.Descripcion)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Prefijo):</td>
+                    <td>@Html.DisplayFor(model => model.Prefijo)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Estado):</td>
+                    <td>@Html.DisplayFor(model => model.Estado.Descripcion)</td>
+                </tr>
+
+            </table>
+            <hr class="new-section-sm">
+            <a class="btn btn-sm btn-default" asp-action="index"><i class="ion-arrow-left-b ion-14px"></i> Regresar al listado</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="tab-base">
+        <input type="hidden" asp-for="Id" />
+        <!--Nav Tabs-->
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#tabinventarios" aria-expanded="false"><span class="fa fa-users"></span> Inventarios <span class="badge badge-success">0</span></a>
+            </li>
+        </ul>
+        <!--Tabs Content-->
+        <div class="tab-content">
+            <div id="tabinventarios" class="tab-pane fade active in">
+                <div id="inventarios"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ScriptsCRUD")
+    @await Html.PartialAsync("_ScriptsDETAILS")
+    <environment include="Development">
+        <script src="~/js/models/familia.model.js" asp-append-version="true"></script>
+        <script src="~/js/models/inventario.model.js" asp-append-version="true"></script>
+
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/models/familia.min.js" asp-append-version="true"></script>
+        <script src="~/js/models/inventario.min.js" asp-append-version="true"></script>
+
+    </environment>
+    <script>
+
+        $(document).ready(function () {
+            let inventarioModel = findEntity('inventario');
+            inventarioModel.load(1, 'familia');
+        });
+
+        var load = (entity, page) => {
+            let model = findEntity(entity);
+            model.load(page, 'familia');
+        }
+
+    </script>
+}

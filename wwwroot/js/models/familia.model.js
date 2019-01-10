@@ -3,7 +3,7 @@
     urlGet: 'familias/obtenerListar',
     urlCreate: `familias/create`,
     urlUpdate: `familias/edit`,
-    urlGetPartial: 'familias/obtenerListarCompletar',
+    urlGetPartial: 'familias/obtener-por/{parametro}',
     GetPartialKey: function () {
         return Id.value || null;
     },

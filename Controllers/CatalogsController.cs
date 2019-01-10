@@ -22,6 +22,7 @@ namespace Eureka.Controllers
         {
             _context = context;
         }
+
         #region Estados
         [Route("obtener-estados-for-create")]
         public async Task<IActionResult> ListarEstadosForCreate()
@@ -45,6 +46,7 @@ namespace Eureka.Controllers
             return Json(await estados.ToListAsync(), config);
         }
         #endregion
+
         #region Areas
         [Route("obtener-areas-for-create")]
         public async Task<IActionResult> ListarAreasForCreate()
@@ -65,5 +67,77 @@ namespace Eureka.Controllers
             return Json(await areas.ToListAsync());
         }
         #endregion
+
+        #region Familias
+        [Route("obtener-familias-for-create")]
+        public async Task<IActionResult> ListarFamiliasForCreate()
+        {
+            var familias = _context.Familias.Where(f => f.EstadoId == (int)Estados.Activado)
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await familias.ToListAsync());
+        }
+
+        [Route("obtener-familias-for-edit")]
+        public async Task<IActionResult> ListarFamiliasForEdit()
+        {
+            var familias = _context.Familias
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await familias.ToListAsync());
+        }
+        #endregion
+        #region Umes
+        [Route("obtener-umes-for-create")]
+        public async Task<IActionResult> ListarUmesForCreate()
+        {
+            var umes = _context.Ums.Where(u => u.EstadoId == (int)Estados.Activado)
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await umes.ToListAsync());
+        }
+
+        [Route("obtener-umes-for-edit")]
+        public async Task<IActionResult> ListarUmesForEdit()
+        {
+            var umes = _context.Ums
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await umes.ToListAsync());
+        }
+        #endregion
+        #region Presentaciones
+        [Route("obtener-presentaciones-for-create")]
+        public async Task<IActionResult> ListarPresentacionesForCreate()
+        {
+            var presentaciones = _context.Presentaciones.Where(p => p.EstadoId == (int)Estados.Activado)
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await presentaciones.ToListAsync());
+        }
+
+        [Route("obtener-presentaciones-for-edit")]
+        public async Task<IActionResult> ListarPresentacionesForEdit()
+        {
+            var presentaciones = _context.Presentaciones
+            .Select(x => new {
+                id = x.Id.ToString(),
+                text = x.Descripcion
+            });
+            return Json(await presentaciones.ToListAsync());
+        }
+        #endregion
+
+
     }
 }
