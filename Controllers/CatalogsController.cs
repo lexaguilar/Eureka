@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Eureka.Extensions;
 using Eureka.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +12,13 @@ using Newtonsoft.Json;
 
 namespace Eureka.Controllers
 {
-    
+    [Authorize]
     [Produces("application/json")]
     [Route("api/catalogs")]
     public class CatalogsController : Controller
     {
         private readonly EurekaContext _context;
-        JsonSerializerSettings config = new JsonSerializerSettings { MaxDepth = 1, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        readonly JsonSerializerSettings config = new JsonSerializerSettings { MaxDepth = 1, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
         public CatalogsController(EurekaContext context)
         {
             _context = context;

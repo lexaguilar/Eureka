@@ -9,12 +9,15 @@ using Eureka.Extensions;
 using System.Data.SqlClient;
 using Eureka.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+
 namespace Eureka.Controllers
 {
+    [Authorize]
     public class CategoriasController : Controller
     {
         private readonly EurekaContext _context;
-        JsonSerializerSettings config = new JsonSerializerSettings { MaxDepth = 1, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        readonly JsonSerializerSettings config = new JsonSerializerSettings { MaxDepth = 1, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
         public CategoriasController(EurekaContext context)
         {
             _context = context;
